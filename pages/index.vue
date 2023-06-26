@@ -23,13 +23,11 @@ const showProject = (project: Project) => {
 };
 
 try {
-  /*   const { data, error } = await useFetch("/api/projects");
-  projects.value = (data.value as Project[]) ?? []; */
-  const data = await useFetch(
-    "https://competence-hub-default-rtdb.europe-west1.firebasedatabase.app/projects.json"
-  );
-  if (data.error.value) {
-    throw new Error(data.error.value.message);
+  console.log("IN INDEX.VUE GETTING DATA");
+  const { data, error } = await useFetch("/api/projects");
+  projects.value = (data.value as Project[]) ?? [];
+  if (error.value) {
+    throw new Error(error.value.message);
   }
   console.log(data);
 } catch (error) {

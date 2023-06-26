@@ -1,10 +1,9 @@
 import { GoogleAuthProvider, getAuth, signInWithRedirect } from "firebase/auth";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
+  console.log("MIDDLEWARE ACTIVE");
+
   const user = await getCurrentUser();
-  console.log(user);
-  //to.params.access_token = user.accessToken;
-  console.log(to);
   if (!user) signIn();
 });
 
