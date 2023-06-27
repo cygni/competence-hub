@@ -1,13 +1,12 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD8J4I7DT9EAfqxXO8FZWLXm17_I7KLxfs",
-  authDomain: "competence-hub.firebaseapp.com",
-  projectId: "competence-hub",
-  storageBucket: "competence-hub.appspot.com",
-  messagingSenderId: "348871633146",
-  appId: "1:348871633146:web:a660f88f12d9b4b4b24143",
+  apiKey: "AIzaSyAxPNtT3asb3vcsXIeg-DDKfQQYnY2-eLQ",
+  authDomain: "cygni-competence-hub.firebaseapp.com",
+  projectId: "cygni-competence-hub",
+  storageBucket: "cygni-competence-hub.appspot.com",
+  messagingSenderId: "936812239764",
+  appId: "1:936812239764:web:c67f45faed8254fd4e8d81",
 };
 
 const app = initializeApp(firebaseConfig);
