@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import { Project } from "../types/index";
 import { useCollection, useFirestore } from "vuefire";
-import { collection } from "firebase/firestore";
+import createError from "http-errors";
+import {
+  collection,
+  setDoc,
+  doc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 const projectsCollection = useCollection(collection(useFirestore(), "project"));
 
 console.log("collection", projectsCollection);
 
-const projects = ref<Project[]>([]);
+let projects = useCollection(collection(useFirestore(), "competence-projects"));
+console.log("projects YEYYY", projects.value);
 
 if (!projects) {
   throw createError({ statusCode: 404, statusMessage: "No projects" });
@@ -16,9 +24,48 @@ if (!projects) {
 const selectedproject = ref<Project>();
 
 const addToProject = (project: Project) => {
-  console.log(project);
-  projects.value.push(project);
+  console.log("adding project");
+
+  if (
+    project.title != "" ||
+    project.description != "" ||
+    project.contact != ""
+  ) {
+    setDoc(doc(useFirestore(), "competence-projects", project.title), {
+      title: project.title,
+      description: project.description,
+      contact: project.contact,
+      tags: project.tags,
+    });
+  }
+
+  readProject();
 };
+const updateProject = (project: Project) => {
+  console.log("updating project");
+
+  if (
+    project.title != "" ||
+    project.description != "" ||
+    project.contact != ""
+  ) {
+    updateDoc(doc(useFirestore(), "competence-projects", project.title), {
+      title: project.title,
+      description: project.description,
+      contact: project.contact,
+      tags: project.tags,
+    });
+  }
+  readProject();
+};
+const deleteProject = (title: string) => {
+  deleteDoc(doc(useFirestore(), "competence-projects", title));
+};
+
+const readProject = () => {
+  projects = useCollection(collection(useFirestore(), "competence-projects"));
+};
+
 const showProject = (project: Project) => {
   selectedproject.value = project;
 };
@@ -141,6 +188,7 @@ export default {
     this.readProjects();
   },
 }; */
+
 </script>
 
 <template>
