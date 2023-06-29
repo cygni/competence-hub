@@ -9,6 +9,9 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
+import { Mode } from "../types/index";
+import { useModeStore } from "../store/index";
+import { storeToRefs } from "pinia";
 
 let projects = useCollection(collection(useFirestore(), "competence-projects"));
 
@@ -16,11 +19,13 @@ if (!projects) {
   throw createError({ statusCode: 404, statusMessage: "No projects" });
 }
 
-const selectedproject = ref<Project>();
+let selectedproject = ref<Project>();
+const modeStore = useModeStore();
+const { getMode } = storeToRefs(modeStore);
+const mode = getMode.value;
+const { setReadMode, setEditMode, setNewMode, setOverviewMode } = modeStore;
 
 const addToProject = (project: Project) => {
-  console.log("adding project");
-
   if (
     project.title != "" ||
     project.description != "" ||
@@ -33,7 +38,7 @@ const addToProject = (project: Project) => {
       tags: project.tags,
     });
   }
-
+  modeSore.setViewMode();
   readProject();
 };
 const updateProject = (project: Project) => {
@@ -51,6 +56,7 @@ const updateProject = (project: Project) => {
       tags: project.tags,
     });
   }
+  isEditProject = false;
   readProject();
 };
 const deleteProject = (title: string) => {
@@ -63,13 +69,27 @@ const readProject = () => {
 
 const showProject = (project: Project) => {
   selectedproject.value = project;
+  setReadMode();
 };
+
+console.log("mode - inside index.vue", mode.value);
+console.log("current mode - index.vue", mode.value);
 </script>
 
 <template>
   <div>
+    <button class="w-full btn" :onClick="setNewMode">Create new project</button>
+    <button class="w-full btn" :onClick="setOverviewMode">
+      Go to overview
+    </button>
     <div class="flex justify-center mb-8">
-      <Form @addToProject="addToProject" />
+      <Form
+        v-if="mode != Mode.Overview"
+        :selectedproject="selectedproject"
+        @addToProject="addToProject"
+        @updateProject="updateProject"
+        @setEditMode="setEditMode"
+      />
     </div>
 
     <div class="grid grid-cols-4 gap-4">

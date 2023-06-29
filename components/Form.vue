@@ -1,18 +1,62 @@
 <script setup lang="ts">
+import { Mode } from "../types/index";
+import { useModeStore } from "../store/index";
+import { storeToRefs } from "pinia";
+
 const emit = defineEmits(["addToProject"]);
+const { selectedproject } = defineProps(["mode", "selectedproject"]);
 const title = ref("");
 const description = ref("");
 const contact = ref("");
 const tags = ref([]);
+let heading = ref("");
+
+const modeStore = useModeStore();
+const { mode } = storeToRefs(modeStore);
+
+console.log("selected project inside form", selectedproject);
+
+watch(mode, () => {
+  switch (mode.value) {
+    case Mode.Read: {
+      heading.value = `Project ${selectedproject?.title}`;
+      break;
+    }
+    case Mode.Edit: {
+      heading.value = `Edit project ${selectedproject?.title}`;
+      break;
+    }
+    case Mode.New: {
+      heading.value = "Create new project";
+      break;
+    }
+  }
+});
 
 const submit = (e: any) => {
   e.preventDefault();
-  emit("addToProject", {
-    title: title.value,
-    description: description.value,
-    contact: contact.value,
-    tags: [tags.value],
-  });
+
+  switch (mode.value) {
+    case Mode.New: {
+      emit("addToProject", {
+        title: title.value,
+        description: description.value,
+        contact: contact.value,
+        tags: [tags.value],
+      });
+      break;
+    }
+    case Mode.Edit: {
+      emit("updateProject", {
+        title: title.value,
+        description: description.value,
+        contact: contact.value,
+        tags: [tags.value],
+      });
+      break;
+    }
+  }
+
   e.target.reset();
 };
 </script>
@@ -20,7 +64,7 @@ const submit = (e: any) => {
 <template>
   <div class="bg-white rounded-lg shadow-lg p-6 overflow-hidden">
     <div class="text-gray-700 mb-4">
-      <h1 class="tracking-wider text-2xl font-bold">Add new project</h1>
+      <h1 class="tracking-wider text-2xl font-bold">{{ heading }}</h1>
     </div>
 
     <form class="grid grid-cols-2 gap-4" :onSubmit="submit">
@@ -99,6 +143,28 @@ const submit = (e: any) => {
           </div>
         </div>
       </div>
+
+      <button
+        :onClick="() => $emit('setEditMode')"
+        class="btn bg-blue-800 hover:bg-blue-800 font-bold py-2 px-2 rounded inline-flex"
+      >
+        <svg
+          class="w-6 h-6 mr-2"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 1v3m5-3v3m5-3v3M1 7h7m1.506 3.429 2.065 2.065M19 7h-2M2 3h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm6 13H6v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L8 16Z"
+          ></path>
+        </svg>
+        <span>Edit</span>
+      </button>
       <div class="col-span-2 flex justify-center items-center mt-4">
         <button class="w-full btn" type="submit">Submit</button>
       </div>
