@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Project } from "../types/index";
-import { useCollection, useFirestore } from "vuefire";
-import createError from "http-errors";
 import {
   collection,
-  setDoc,
-  doc,
-  updateDoc,
   deleteDoc,
+  doc,
+  setDoc,
+  updateDoc,
 } from "firebase/firestore";
+import createError from "http-errors";
+import { useCollection, useFirestore } from "vuefire";
+import { Project } from "../types/index";
 
 let projects = useCollection(collection(useFirestore(), "competence-projects"));
 
@@ -16,7 +16,7 @@ if (!projects) {
   throw createError({ statusCode: 404, statusMessage: "No projects" });
 }
 
-const selectedproject = ref<Project>();
+const selectedproject = ref<Project>(null);
 
 const addToProject = (project: Project) => {
   console.log("adding project");
@@ -61,20 +61,33 @@ const readProject = () => {
   projects = useCollection(collection(useFirestore(), "competence-projects"));
 };
 
-const showProject = (project: Project) => {
+const showModal = (project: Project) => {
   selectedproject.value = project;
+  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
+  dialog.addEventListener("click", (ev: any) => {
+    if (ev.target.id !== "wrapper") {
+      //closeModal();
+    }
+  });
+  dialog.showModal();
+};
+const closeModal = () => {
+  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
+  dialog.close();
 };
 </script>
 
 <template>
   <div>
-    <div class="flex justify-center mb-8">
-      <Form @addToProject="addToProject" />
-    </div>
+    <Dialog>
+      <div v-if="selectedproject" id="wrapper">
+        <Form @addToProject="addToProject" />
+      </div>
+    </Dialog>
 
     <div class="grid grid-cols-4 gap-4">
       <div v-for="project in projects" :key="project.id">
-        <ProjectCard :project="project" @setSelectedProject="showProject" />
+        <ProjectCard :project="project" @setSelectedProject="showModal" />
       </div>
     </div>
   </div>
