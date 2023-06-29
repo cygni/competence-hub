@@ -1,22 +1,28 @@
 <script setup lang="ts">
-import { Mode } from "../types/index";
-import { useModeStore } from "../store/index";
 import { storeToRefs } from "pinia";
+import { useModeStore } from "../store/index";
+import { Mode, Project } from "../types/index";
 
-const emit = defineEmits(["addToProject"]);
-const { selectedproject } = defineProps(["mode", "selectedproject"]);
+const emit = defineEmits(["addToProject", "updateProject", "setEditMode"]);
+const { selectedproject } = defineProps<{ selectedproject: Project }>();
+const modeStore = useModeStore();
+const { mode } = storeToRefs(modeStore);
+
 const title = ref("");
 const description = ref("");
 const contact = ref("");
 const tags = ref([]);
 let heading = ref("");
 
-const modeStore = useModeStore();
-const { mode } = storeToRefs(modeStore);
+if (mode.value === Mode.Read) {
+  console.log("FILL INPUT FIELDS");
+  title.value = selectedproject.title;
+  description.value = selectedproject.description;
+  contact.value = selectedproject.contact;
+  tags.value = selectedproject.tags;
+}
 
-console.log("selected project inside form", selectedproject);
-
-watch(mode, () => {
+watchEffect(() => {
   switch (mode.value) {
     case Mode.Read: {
       heading.value = `Project ${selectedproject?.title}`;
@@ -42,7 +48,7 @@ const submit = (e: any) => {
         title: title.value,
         description: description.value,
         contact: contact.value,
-        tags: [tags.value],
+        tags: tags.value,
       });
       break;
     }
@@ -51,7 +57,7 @@ const submit = (e: any) => {
         title: title.value,
         description: description.value,
         contact: contact.value,
-        tags: [tags.value],
+        tags: tags.value,
       });
       break;
     }
@@ -145,7 +151,9 @@ const submit = (e: any) => {
       </div>
 
       <button
+        v-if="mode === Mode.Read"
         :onClick="() => $emit('setEditMode')"
+        type="button"
         class="btn bg-blue-800 hover:bg-blue-800 font-bold py-2 px-2 rounded inline-flex"
       >
         <svg
