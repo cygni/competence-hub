@@ -7,13 +7,7 @@
     <p class="truncate">{{ project.description }}</p>
     <p>{{ project.contact }}</p>
     <div class="py-4 mt-auto">
-      <span
-        v-for="tag in project.tags"
-        :key="tag"
-        class="bg-[#000735] text-white p-2 mr-2 rounded-xl"
-      >
-        {{ tag }}
-      </span>
+      <Tag v-for="tag in project.tags" :tag="tag" />
     </div>
   </div>
 </template>
