@@ -37,11 +37,11 @@ const addToProject = (project: Project) => {
       tags: project.tags,
     });
   }
-  modeSore.setViewMode();
+  modeStore.setReadMode();
   readProject();
 };
 const updateProject = (project: Project) => {
-  console.log("updating project");
+  console.log("updating project", project);
 
   if (
     project.title != "" ||
@@ -55,7 +55,7 @@ const updateProject = (project: Project) => {
       tags: project.tags,
     });
   }
-  isEditProject = false;
+  setReadMode();
   readProject();
 };
 const deleteProject = (title: string) => {
@@ -66,50 +66,63 @@ const readProject = () => {
   projects = useCollection(collection(useFirestore(), "competence-projects"));
 };
 
-const showModal = (project: Project) => {
-  selectedproject.value = project;
-  setReadMode();
+const showDialog = (project?: Project) => {
+  if (project) {
+    selectedproject.value = project;
+    setReadMode();
+  } else {
+    setNewMode();
+  }
   const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
-  dialog.addEventListener("click", (ev: any) => {
-    if (ev.target.id !== "wrapper") {
-      //closeModal();
-    }
-  });
+  dialog.addEventListener("click", closeDialogIfOutside);
+  dialog.addEventListener("cancel", closeDialogIfOutside);
   dialog.showModal();
 };
-const closeModal = () => {
-  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
-  dialog.close();
-};
 
-console.log("mode - inside index.vue", mode.value);
-console.log("current mode - index.vue", mode.value);
+function closeDialogIfOutside(ev: any) {
+  if (ev.target.id === "projectDialog") {
+    const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
+    dialog.removeEventListener("click", closeDialogIfOutside);
+    dialog.removeEventListener("cancel", closeDialogIfOutside);
+    dialog.close();
+    selectedproject.value = undefined;
+    setOverviewMode();
+  }
+}
 </script>
 
 <template>
   <div>
-    <button class="w-full btn" :onClick="setNewMode">Create new project</button>
-    <button class="w-full btn" :onClick="setOverviewMode">
-      Go to overview
-    </button>
-    <div class="flex justify-center mb-8">
-      <Form
-        v-if="mode != Mode.Overview"
-        :selectedproject="selectedproject"
-        @addToProject="addToProject"
-        @updateProject="updateProject"
-        @setEditMode="setEditMode"
-      />
+    <div>
+      <button
+        class="w-full btn"
+        :onClick="
+          () => {
+            showDialog();
+          }
+        "
+      >
+        Create new project
+      </button>
+      <button class="w-full btn" :onClick="setOverviewMode">
+        Go to overview
+      </button>
     </div>
+
     <Dialog>
-      <div v-if="selectedproject" id="wrapper">
-        <Form @addToProject="addToProject" />
+      <div v-if="mode != Mode.Overview" id="wrapper">
+        <Form
+          :selectedproject="selectedproject"
+          @addToProject="addToProject"
+          @updateProject="updateProject"
+          @setEditMode="setEditMode"
+        />
       </div>
     </Dialog>
 
     <div class="grid grid-cols-4 gap-4">
       <div v-for="project in projects" :key="project.id">
-        <ProjectCard :project="project" @setSelectedProject="showModal" />
+        <ProjectCard :project="project" @setSelectedProject="showDialog" />
       </div>
     </div>
   </div>
