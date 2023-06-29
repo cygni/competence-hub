@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { Project } from "../types/index";
-import { useCollection, useFirestore } from "vuefire";
-import createError from "http-errors";
 import {
   collection,
-  setDoc,
-  doc,
-  updateDoc,
   deleteDoc,
+  doc,
+  setDoc,
+  updateDoc,
 } from "firebase/firestore";
-import { Mode } from "../types/index";
-import { useModeStore } from "../store/index";
+import createError from "http-errors";
 import { storeToRefs } from "pinia";
+import { useCollection, useFirestore } from "vuefire";
+import { useModeStore } from "../store/index";
+import { Mode, Project } from "../types/index";
 
 let projects = useCollection(collection(useFirestore(), "competence-projects"));
 
@@ -67,9 +66,20 @@ const readProject = () => {
   projects = useCollection(collection(useFirestore(), "competence-projects"));
 };
 
-const showProject = (project: Project) => {
+const showModal = (project: Project) => {
   selectedproject.value = project;
   setReadMode();
+  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
+  dialog.addEventListener("click", (ev: any) => {
+    if (ev.target.id !== "wrapper") {
+      //closeModal();
+    }
+  });
+  dialog.showModal();
+};
+const closeModal = () => {
+  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
+  dialog.close();
 };
 
 console.log("mode - inside index.vue", mode.value);
@@ -91,10 +101,15 @@ console.log("current mode - index.vue", mode.value);
         @setEditMode="setEditMode"
       />
     </div>
+    <Dialog>
+      <div v-if="selectedproject" id="wrapper">
+        <Form @addToProject="addToProject" />
+      </div>
+    </Dialog>
 
     <div class="grid grid-cols-4 gap-4">
       <div v-for="project in projects" :key="project.id">
-        <ProjectCard :project="project" @setSelectedProject="showProject" />
+        <ProjectCard :project="project" @setSelectedProject="showModal" />
       </div>
     </div>
   </div>
