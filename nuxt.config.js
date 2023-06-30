@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "nuxt-vuefire"],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-vuefire"],
   plugins: ["@/plugins/firebase.js"],
   css: ["@/assets/css/global.css"],
   alias: {

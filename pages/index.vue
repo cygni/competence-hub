@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { Project } from "../types/index";
-import { useCollection, useFirestore } from "vuefire";
-import createError from "http-errors";
 import {
   collection,
-  setDoc,
-  doc,
-  updateDoc,
   deleteDoc,
+  doc,
+  setDoc,
+  updateDoc,
 } from "firebase/firestore";
+import createError from "http-errors";
+import { storeToRefs } from "pinia";
+import { useCollection, useFirestore } from "vuefire";
+import { useModeStore } from "../store/index";
+import { Mode, Project } from "../types/index";
 
 let projects = useCollection(collection(useFirestore(), "competence-projects"));
 
@@ -16,11 +18,13 @@ if (!projects) {
   throw createError({ statusCode: 404, statusMessage: "No projects" });
 }
 
-const selectedproject = ref<Project>();
+let selectedproject = ref<Project>();
+const modeStore = useModeStore();
+const { getMode } = storeToRefs(modeStore);
+const mode = getMode.value;
+const { setReadMode, setEditMode, setNewMode, setOverviewMode } = modeStore;
 
 const addToProject = (project: Project) => {
-  console.log("adding project");
-
   if (
     project.title != "" ||
     project.description != "" ||
@@ -33,11 +37,11 @@ const addToProject = (project: Project) => {
       tags: project.tags,
     });
   }
-
+  modeStore.setReadMode();
   readProject();
 };
 const updateProject = (project: Project) => {
-  console.log("updating project");
+  console.log("updating project", project);
 
   if (
     project.title != "" ||
@@ -51,6 +55,7 @@ const updateProject = (project: Project) => {
       tags: project.tags,
     });
   }
+  setReadMode();
   readProject();
 };
 const deleteProject = (title: string) => {
@@ -61,20 +66,63 @@ const readProject = () => {
   projects = useCollection(collection(useFirestore(), "competence-projects"));
 };
 
-const showProject = (project: Project) => {
-  selectedproject.value = project;
+const showDialog = (project?: Project) => {
+  if (project) {
+    selectedproject.value = project;
+    setReadMode();
+  } else {
+    setNewMode();
+  }
+  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
+  dialog.addEventListener("click", closeDialogIfOutside);
+  dialog.addEventListener("cancel", closeDialogIfOutside);
+  dialog.showModal();
 };
+
+function closeDialogIfOutside(ev: any) {
+  if (ev.target.id === "projectDialog") {
+    const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
+    dialog.removeEventListener("click", closeDialogIfOutside);
+    dialog.removeEventListener("cancel", closeDialogIfOutside);
+    dialog.close();
+    selectedproject.value = undefined;
+    setOverviewMode();
+  }
+}
 </script>
 
 <template>
   <div>
-    <div class="flex justify-center mb-8">
-      <Form @addToProject="addToProject" />
+    <div>
+      <button
+        class="w-full btn"
+        :onClick="
+          () => {
+            showDialog();
+          }
+        "
+      >
+        Create new project
+      </button>
+      <button class="w-full btn" :onClick="setOverviewMode">
+        Go to overview
+      </button>
     </div>
+
+    <Dialog>
+      <div v-if="mode != Mode.Overview" id="wrapper">
+        <Form
+          :selectedproject="selectedproject"
+          @addToProject="addToProject"
+          @updateProject="updateProject"
+          @setEditMode="setEditMode"
+        />
+      </div>
+    </Dialog>
 
     <div class="grid grid-cols-4 gap-4">
       <div v-for="project in projects" :key="project.id">
-        <ProjectCard :project="project" @setSelectedProject="showProject" />
+        <ProjectCard :project="project" @setSelectedProject="showDialog" />
       </div>
     </div>
   </div>

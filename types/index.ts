@@ -4,3 +4,10 @@ export type Project = {
   contact: string;
   tags: string[];
 };
+
+export enum Mode {
+  Overview = "Overview",
+  Edit = "Edit",
+  Read = "Read",
+  New = "New",
+}
