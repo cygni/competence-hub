@@ -5,6 +5,11 @@ export type Project = {
   tags: string[];
 };
 
+export type TechTag = {
+  value: string;
+  aspect: string;
+};
+
 export enum Mode {
   Overview = "Overview",
   Edit = "Edit",

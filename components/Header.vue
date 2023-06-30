@@ -21,6 +21,9 @@
         <li class="transition hover:text-[#eab8b2]">
           <NuxtLink to="/about">About</NuxtLink>
         </li>
+        <li class="transition hover:text-[#eab8b2]">
+          <NuxtLink to="/tags">Tags</NuxtLink>
+        </li>
       </ul>
     </nav>
   </header>
