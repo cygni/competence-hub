@@ -60,6 +60,7 @@ const updateProject = (project: Project) => {
 };
 const deleteProject = (title: string) => {
   deleteDoc(doc(useFirestore(), "competence-projects", title));
+  closeDialog();
 };
 
 const readProject = () => {
@@ -81,21 +82,24 @@ const showDialog = (project?: Project) => {
 
 function closeDialogIfOutside(ev: any) {
   if (ev.target.id === "projectDialog") {
-    const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
-    dialog.removeEventListener("click", closeDialogIfOutside);
-    dialog.removeEventListener("cancel", closeDialogIfOutside);
-    dialog.close();
-    selectedproject.value = undefined;
-    setOverviewMode();
+    closeDialog();
   }
+}
+function closeDialog() {
+  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
+  dialog.removeEventListener("click", closeDialogIfOutside);
+  dialog.removeEventListener("cancel", closeDialogIfOutside);
+  dialog.close();
+  selectedproject.value = undefined;
+  setOverviewMode();
 }
 </script>
 
 <template>
   <div>
-    <div>
+    <div class="flex justify-center items-center mb-8">
       <button
-        class="w-full btn"
+        class="btn mr-4"
         :onClick="
           () => {
             showDialog();
@@ -104,9 +108,7 @@ function closeDialogIfOutside(ev: any) {
       >
         Create new project
       </button>
-      <button class="w-full btn" :onClick="setOverviewMode">
-        Go to overview
-      </button>
+      <button class="btn" :onClick="setOverviewMode">Go to overview</button>
     </div>
 
     <Dialog>
@@ -115,15 +117,20 @@ function closeDialogIfOutside(ev: any) {
           :selectedproject="selectedproject"
           @addToProject="addToProject"
           @updateProject="updateProject"
+          @deleteProject="deleteProject"
           @setEditMode="setEditMode"
+          @closeDialog="closeDialog"
         />
       </div>
     </Dialog>
 
     <div class="grid grid-cols-4 gap-4">
-      <div v-for="project in projects" :key="project.id">
-        <ProjectCard :project="project" @setSelectedProject="showDialog" />
-      </div>
+      <ProjectCard
+        v-for="project in projects"
+        :key="project.id"
+        :project="project"
+        @setSelectedProject="showDialog"
+      />
     </div>
   </div>
 </template>
