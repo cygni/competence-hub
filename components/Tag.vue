@@ -10,9 +10,9 @@
 <script setup lang="ts">
 defineProps<{ tag: string }>();
 /* Cygni brand colors */
-const fullstackColors = ["#000735", "#231F20", "#f9e79f"];
-const backendColors = ["#DD5928", "#0f4c81", "#00966d"];
-const frontendColors = ["#eab8b2", "#00b3b0", "#440B45"];
+const fullstackColors = ["#000735", "#440B45"];
+const backendColors = ["#00b3b0", "#00966d"];
+const frontendColors = ["#eab8b2", "#DD5928"];
 const colors = [
   "#000735",
   "#eab8b2",

@@ -7,38 +7,85 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
-import { TechTag } from "../types/index";
+import { TechTag, Aspect } from "../types/index";
 
 let tags = useCollection(collection(useFirestore(), "competence-tags"));
 console.log("tags ", tags);
 let newTag = { value: "", aspect: "" };
 
 const readTags = () => {
-  projects = useCollection(collection(useFirestore(), "competence-tags"));
+  tags = useCollection(collection(useFirestore(), "competence-tags"));
+};
+
+const isDuplicate = (newTagValue) => {
+  let tagValues = tags.value?.map(function (tag) {
+    return tag.value;
+  });
+  console.log("tagvalues", tagValues);
+  if (tagValues.includes(newTagValue)) {
+    return true;
+  }
 };
 
 const addTag = () => {
-  console.log("lala", newTag);
-  if (newTag.value != "" || newTag.aspect != "") {
-    console.log("adding tag", newTag);
-    setDoc(doc(useFirestore(), "competence-tags", newTag.value), {
-      aspect: newTag.aspect,
-      value: newTag.value,
+  if (!isDuplicate(newTag.value)) {
+    console.log("lala", newTag);
+    let aspect = "";
+
+    switch (newTag.aspect) {
+      case Aspect.Fullstack: {
+        aspect = "fullstack";
+        break;
+      }
+      case Aspect.Frontend: {
+        aspect = "frontend";
+        break;
+      }
+      case Aspect.Backend: {
+        aspect = "backend";
+        break;
+      }
+    }
+    if (newTag.value != "" || aspect != "") {
+      console.log("adding tag", newTag);
+      setDoc(doc(useFirestore(), "competence-tags", newTag.value), {
+        aspect: aspect,
+        value: newTag.value,
+      });
+    }
+    readTags();
+  } else {
+    throw createError({
+      statusCode: 403,
+      statusMessage: "Cant add duplicate tech tags",
     });
   }
-  readTags();
 };
 </script>
 
 <template>
-  <div class="text-gray-700">
-    <p>Available tech-tags</p>
-    <div class="p-3">
-      <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
+  <div class="container text-gray-700">
+    <h2 class="text-xl">Available tech-tags</h2>
+    <div class="flex -mx-2 mb-8">
+      <div class="flex rounded w-1/3 px-2 shadow-lg bg-white p-2 mr-2">
+        <div class="p-3">
+          <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
+        </div>
+      </div>
+      <div class="flex rounded w-1/3 px-2 shadow-lg bg-white p-2 ml-2">
+        <div class="p-3">
+          <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
+        </div>
+      </div>
+      <div class="flex rounded w-1/3 px-2 shadow-lg bg-white p-2 ml-2">
+        <div class="p-3">
+          <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
+        </div>
+      </div>
     </div>
 
-    <form class="grid grid-cols-2 gap-4" :onSubmit="submit">
-      <div class="col-span-1">
+    <form class="grid grid-cols-1 gap-4 mt-9" :onSubmit="submit">
+      <div class="col-span-1 max-w-md">
         <label
           class="uppercase tracking-wider text-xs font-bold text-gray-700"
           for="techtag-value"
@@ -52,7 +99,7 @@ const addTag = () => {
           placeholder="New tech tag..."
         />
       </div>
-      <div class="col-span-1">
+      <div class="col-span-1 max-w-md">
         <label class="uppercase tracking-wider text-xs font-bold text-gray-700"
           >Aspect</label
         >
@@ -63,30 +110,32 @@ const addTag = () => {
             class="mr-2"
             type="radio"
             id="backend"
-            value="backend"
+            :value="Aspect.Backend"
             v-model="newTag.aspect"
           />
-          <label class="mr-2" for="backend">Backend</label>
+          <label class="mr-8" for="backend">Backend</label>
           <input
             class="mr-2"
             type="radio"
             id="frontend"
-            value="frontend"
+            :value="Aspect.Frontend"
             v-model="newTag.aspect"
           />
-          <label class="mr-2" for="frontend">Frontend</label>
+          <label class="mr-8" for="frontend">Frontend</label>
           <input
             class="mr-2"
             type="radio"
             id="fullstack"
-            value="fullstack"
+            :value="Aspect.Fullstack"
             v-model="newTag.aspect"
           />
-          <label class="mr-2" for="fullstack">Fullstack</label>
+          <label class="mr-8" for="fullstack">Fullstack</label>
         </div>
       </div>
     </form>
 
-    <button class="w-full btn" :onClick="addTag">Add tech tag</button>
+    <div class="col-span-1 flex justify-center items-center mt-4 max-w-xs">
+      <button class="w-full btn" :onClick="addTag">Add tech tag</button>
+    </div>
   </div>
 </template>
