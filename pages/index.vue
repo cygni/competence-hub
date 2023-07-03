@@ -25,6 +25,7 @@ const mode = getMode.value;
 const { setReadMode, setEditMode, setNewMode, setOverviewMode } = modeStore;
 
 const addToProject = (project: Project) => {
+  console.log("project", project);
   if (
     project.title != "" ||
     project.description != "" ||
