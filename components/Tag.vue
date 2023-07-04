@@ -26,8 +26,9 @@ const colors = [
   "#00966d",
   "#f9e79f",
 ];
+
 const randomBackground = (tag) => {
-  if (tag.aspect) {
+  if (tag?.aspect) {
     switch (tag.aspect) {
       case "backend": {
         const randomIndex = Math.floor(Math.random() * backendColors.length);

@@ -7,20 +7,20 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
-import { TechTag, Aspect } from "../types/index";
+import { Aspect } from "../types/index";
+import { getFilteredTags, getAllTags } from "../api/tags";
 
-let tags = useCollection(collection(useFirestore(), "competence-tags"));
+// let tags = useCollection(collection(useFirestore(), "competence-tags"));
 let newTag = { value: "", aspect: "" };
+let tags = ref(getFilteredTags());
 
-const readTags = () => {
-  tags = useCollection(collection(useFirestore(), "competence-tags"));
-};
+console.log("tags tags tags", tags);
 
 const isDuplicate = (newTagValue) => {
-  let tagValues = tags.value?.map(function (tag) {
+  let tagValues = getAllTags().map(function (tag) {
     return tag.value;
   });
-
+  console.log(tagValues);
   if (tagValues.includes(newTagValue)) {
     return true;
   }
@@ -50,7 +50,10 @@ const addTag = () => {
         value: newTag.value,
       });
     }
-    readTags();
+
+    setTimeout(() => {
+      tags.value = getFilteredTags();
+    }, 2000);
   } else {
     throw createError({
       statusCode: 403,
@@ -66,17 +69,29 @@ const addTag = () => {
     <div class="flex flex-row">
       <div class="rounded basis-1/3 shadow-lg bg-white p-2 mr-2">
         <div class="flex flex-wrap">
-          <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
+          <Tag
+            v-if="tags.frontend?.length > 0"
+            v-for="tag in tags.frontend"
+            :tag="tag"
+          />
         </div>
       </div>
       <div class="rounded basis-1/3 shadow-lg bg-white p-2 ml-2">
         <div class="flex flex-wrap">
-          <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
+          <Tag
+            v-if="tags.backend?.length > 0"
+            v-for="tag in tags.backend"
+            :tag="tag"
+          />
         </div>
       </div>
       <div class="rounded basis-1/3 shadow-lg bg-white p-2 ml-2">
         <div class="flex flex-wrap">
-          <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
+          <Tag
+            v-if="tags.fullstack?.length > 0"
+            v-for="tag in tags.fullstack"
+            :tag="tag"
+          />
         </div>
       </div>
     </div>
