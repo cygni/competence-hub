@@ -41,8 +41,6 @@ const addToProject = (project: Project) => {
   readProject();
 };
 const updateProject = (project: Project) => {
-  console.log("updating project", project);
-
   if (
     project.title != "" ||
     project.description != "" ||
@@ -124,7 +122,7 @@ function closeDialog() {
       </div>
     </Dialog>
 
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
       <ProjectCard
         v-for="project in projects"
         :key="project.id"

@@ -1,18 +1,20 @@
 <template>
   <span
     :id="'tag-' + tag"
-    class="text-white p-2 mr-2 rounded-xl"
+    class="text-white p-2 mr-2 mb-2 rounded-xl"
     :style="{ 'background-color': randomBackground(tag) }"
   >
     {{ tag.value ? tag.value : tag }}
   </span>
 </template>
 <script setup lang="ts">
-defineProps<{ tag: string }>();
+import { TechTag } from "../types";
+
+defineProps<{ tag: TechTag }>();
 /* Cygni brand colors */
-const fullstackColors = ["#000735", "#231F20", "#f9e79f"];
-const backendColors = ["#DD5928", "#0f4c81", "#00966d"];
-const frontendColors = ["#eab8b2", "#00b3b0", "#440B45"];
+const fullstackColors = ["#000735", "#440B45"];
+const backendColors = ["#00b3b0", "#00966d"];
+const frontendColors = ["#eab8b2", "#DD5928"];
 const colors = [
   "#000735",
   "#eab8b2",
@@ -25,7 +27,6 @@ const colors = [
   "#f9e79f",
 ];
 const randomBackground = (tag) => {
-  console.log(tag);
   if (tag.aspect) {
     switch (tag.aspect) {
       case "backend": {

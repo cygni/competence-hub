@@ -9,7 +9,9 @@
 
 #Main {
   @apply p-10;
-  @apply h-screen;
+}
+html {
+  @apply h-full;
   @apply bg-slate-100;
 }
 

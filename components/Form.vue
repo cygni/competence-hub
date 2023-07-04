@@ -23,7 +23,6 @@ let isInputDisabled = ref(
 );
 
 if (mode.value === Mode.Read) {
-  console.log("FILL INPUT FIELDS");
   title.value = selectedproject.title;
   description.value = selectedproject.description;
   contact.value = selectedproject.contact;

@@ -16,3 +16,9 @@ export enum Mode {
   Read = "Read",
   New = "New",
 }
+
+export enum Aspect {
+  Backend = 0,
+  Fullstack,
+  Frontend,
+}
