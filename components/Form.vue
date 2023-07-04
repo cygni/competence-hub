@@ -3,15 +3,20 @@ import { storeToRefs } from "pinia";
 import { useModeStore } from "../store/index";
 import { Mode, Project } from "../types/index";
 
-const emit = defineEmits(["addToProject", "updateProject", "setEditMode"]);
+const emit = defineEmits([
+  "addToProject",
+  "updateProject",
+  "deleteProject",
+  "setEditMode",
+]);
 const { selectedproject } = defineProps<{ selectedproject: Project }>();
 const modeStore = useModeStore();
 const { mode } = storeToRefs(modeStore);
 
-const title = ref(selectedproject?.title);
-const description = ref(selectedproject?.description);
-const contact = ref(selectedproject?.contact);
-const tags = ref(selectedproject?.tags);
+const title = ref("");
+const description = ref("");
+const contact = ref("");
+const tags = ref([]);
 let heading = ref("");
 let isInputDisabled = ref(
   mode.value === Mode.Edit || mode.value === Mode.New ? false : true
@@ -51,28 +56,13 @@ watchEffect(() => {
 
 const submit = (e: any) => {
   e.preventDefault();
-
-  switch (mode.value) {
-    case Mode.New: {
-      emit("addToProject", {
-        title: title.value,
-        description: description.value,
-        contact: contact.value,
-        tags: tags.value,
-      });
-      break;
-    }
-    case Mode.Edit: {
-      emit("updateProject", {
-        title: title.value,
-        description: description.value,
-        contact: contact.value,
-        tags: tags.value,
-      });
-      break;
-    }
-  }
-
+  const emitMode = mode.value === Mode.New ? "addToProject" : "updateProject";
+  emit(emitMode, {
+    title: title.value,
+    description: description.value,
+    contact: contact.value,
+    tags: tags.value,
+  });
   e.target.reset();
 };
 </script>
@@ -81,34 +71,49 @@ const submit = (e: any) => {
   <div class="bg-white rounded-lg shadow-lg p-6 overflow-hidden">
     <div class="text-gray-700 mb-4 flex justify-between">
       <h1 class="tracking-wider text-2xl font-bold">{{ heading }}</h1>
-
-      <button
-        v-if="mode === Mode.Read"
-        :onClick="() => $emit('setEditMode')"
-        type="button"
-        class="btn bg-blue-800 hover:bg-blue-800 font-bold py-2 px-2 rounded inline-flex"
-      >
-        <svg
-          class="w-5 h-5 mr-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
+      <div class="flex gap-2">
+        <button
+          v-if="mode === Mode.Read"
+          :onClick="() => $emit('setEditMode')"
+          type="button"
+          class="btn bg-blue-500 hover:bg-blue-700 inline-flex"
         >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M5 1v3m5-3v3m5-3v3M1 7h7m1.506 3.429 2.065 2.065M19 7h-2M2 3h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm6 13H6v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L8 16Z"
-          ></path>
-        </svg>
-        <span>Edit</span>
-      </button>
+          <img
+            src="assets/images/edit.svg"
+            class="mr-2"
+            alt="edit"
+            width="20"
+            height="20"
+          />
+          <span>Edit</span>
+        </button>
+        <button
+          v-if="mode !== Mode.New"
+          type="button"
+          class="btn bg-red-500 hover:bg-red-700 inline-flex"
+          :onClick="() => $emit('deleteProject', title)"
+        >
+          <img
+            src="assets/images/delete.svg"
+            class="mr-2"
+            alt="delete"
+            width="20"
+            height="20"
+          />
+          <span>Delete</span>
+        </button>
+        <img
+          :onClick="() => $emit('closeDialog')"
+          src="assets/images/close.svg"
+          class="ml-4 cursor-pointer transition hover:bg-gray-200 rounded-full"
+          alt="close"
+          width="30"
+        />
+      </div>
     </div>
 
     <form class="grid grid-cols-2 gap-4" :onSubmit="submit">
-      <div class="col-span-1">
+      <div class="col-span-2">
         <label
           class="uppercase tracking-wider text-xs font-bold text-gray-700"
           for="project-title"
@@ -119,11 +124,13 @@ const submit = (e: any) => {
           class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
           id="project-title"
           type="text"
+          required
+          placeholder="Enter a title for the project"
           v-model="title"
           :disabled="isInputDisabled"
         />
       </div>
-      <div class="col-span-1">
+      <div class="col-span-2">
         <label
           class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
           for="project-description"
@@ -133,7 +140,9 @@ const submit = (e: any) => {
         <input
           class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
           id="project-description"
+          placeholder="Enter a description for the project"
           type="text"
+          required
           v-model="description"
           :disabled="isInputDisabled"
         />
@@ -143,12 +152,14 @@ const submit = (e: any) => {
           class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
           for="project-contact"
         >
-          Contact
+          Contact (Email)
         </label>
         <input
           class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
           id="project-contact"
-          type="text"
+          type="email"
+          required
+          placeholder="Enter your email"
           v-model="contact"
           :disabled="isInputDisabled"
         />
@@ -168,7 +179,7 @@ const submit = (e: any) => {
             v-model="tags"
             :disabled="isInputDisabled"
           >
-            <option v-for="option in tags" :key="tag" :value="tag">
+            <option v-for="tag in tags" :key="tag" :value="tag">
               {{ tag }}
             </option>
           </select>
@@ -188,7 +199,14 @@ const submit = (e: any) => {
         </div>
       </div>
 
-      <div class="col-span-2 flex justify-center items-center mt-4">
+      <div v-if="mode === Mode.Edit" class="mt-4">
+        <Tag v-for="tag in selectedproject.tags" :tag="tag" :edit="true" />
+      </div>
+
+      <div
+        class="col-span-2 flex justify-center items-center mt-4"
+        v-if="mode === Mode.Edit || mode === Mode.New"
+      >
         <button class="w-full btn" type="submit">Submit</button>
       </div>
     </form>
