@@ -2,7 +2,7 @@
 
 <template>
   <header
-    class="flex justify-between items-center p-6 bg-[#000735] shadow text-white"
+    class="md:flex justify-between items-center p-6 bg-[#000735] shadow text-white"
   >
     <div class="flex items-center">
       <h1 class="text-2xl tracking-wider mr-4">Cygni Competence Hub</h1>
@@ -13,7 +13,7 @@
         height="50"
       />
     </div>
-    <nav>
+    <nav class="mt-4 md:mt-0">
       <ul class="flex gap-8 text-2xl tracking-wider">
         <li class="transition hover:text-[#eab8b2]">
           <NuxtLink to="/">Home</NuxtLink>
