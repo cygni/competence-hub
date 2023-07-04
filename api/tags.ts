@@ -64,9 +64,18 @@ export const filterTags = (tags) => {
     return true;
   });
 
+  filter.aspect = "embedded";
+  const embeddedTags = tags?.filter(function (tag) {
+    for (let key in filter) {
+      if (tag[key] === undefined || tag[key] != filter[key]) return false;
+    }
+    return true;
+  });
+
   return {
     fullstack: fullstackTags,
     frontend: frontendTags,
     backend: backendTags,
+    embedded: embeddedTags,
   };
 };
