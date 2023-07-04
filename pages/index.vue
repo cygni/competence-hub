@@ -118,7 +118,7 @@ function closeDialogIfOutside(ev: any) {
       </div>
     </Dialog>
 
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
       <div v-for="project in projects" :key="project.id">
         <ProjectCard :project="project" @setSelectedProject="showDialog" />
       </div>

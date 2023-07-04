@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card transition hover:bg-slate-100 cursor-pointer"
+    class="card transition hover:bg-slate-100 cursor-pointer overflow-hidden"
     :onClick="() => $emit('setSelectedProject', project)"
   >
     <h1 class="font-bold pb-4">{{ project.title }}</h1>
