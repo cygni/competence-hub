@@ -25,7 +25,6 @@ const colors = [
   "#f9e79f",
 ];
 const randomBackground = (tag) => {
-  console.log(tag);
   if (tag.aspect) {
     switch (tag.aspect) {
       case "backend": {

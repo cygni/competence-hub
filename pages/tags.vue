@@ -10,7 +10,6 @@ import { useCollection, useFirestore } from "vuefire";
 import { TechTag, Aspect } from "../types/index";
 
 let tags = useCollection(collection(useFirestore(), "competence-tags"));
-console.log("tags ", tags);
 let newTag = { value: "", aspect: "" };
 
 const readTags = () => {
@@ -21,7 +20,7 @@ const isDuplicate = (newTagValue) => {
   let tagValues = tags.value?.map(function (tag) {
     return tag.value;
   });
-  console.log("tagvalues", tagValues);
+
   if (tagValues.includes(newTagValue)) {
     return true;
   }
@@ -29,7 +28,6 @@ const isDuplicate = (newTagValue) => {
 
 const addTag = () => {
   if (!isDuplicate(newTag.value)) {
-    console.log("lala", newTag);
     let aspect = "";
 
     switch (newTag.aspect) {
@@ -47,7 +45,6 @@ const addTag = () => {
       }
     }
     if (newTag.value != "" || aspect != "") {
-      console.log("adding tag", newTag);
       setDoc(doc(useFirestore(), "competence-tags", newTag.value), {
         aspect: aspect,
         value: newTag.value,

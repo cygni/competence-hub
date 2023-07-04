@@ -5,10 +5,8 @@ const title = ref("");
 const description = ref("");
 const contact = ref("");
 const tags = ref([]);
-console.log("in modal vue", editableProject);
 
 const submit = (e: any) => {
-  console.log("prooooject in modal", editableProject);
   e.preventDefault();
   emit("updateProject", {
     title: title.value,

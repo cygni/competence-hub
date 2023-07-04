@@ -25,7 +25,6 @@ const mode = getMode.value;
 const { setReadMode, setEditMode, setNewMode, setOverviewMode } = modeStore;
 
 const addToProject = (project: Project) => {
-  console.log("project", project);
   if (
     project.title != "" ||
     project.description != "" ||
@@ -42,8 +41,6 @@ const addToProject = (project: Project) => {
   readProject();
 };
 const updateProject = (project: Project) => {
-  console.log("updating project", project);
-
   if (
     project.title != "" ||
     project.description != "" ||
