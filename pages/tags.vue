@@ -69,10 +69,10 @@ const addTag = () => {
 
 <template>
   <div class="text-gray-700">
-    <h2 class="text-xl">Available tech-tags</h2>
+    <h2 class="text-2xl mb-6">Available tech-tags</h2>
     <div class="flex flex-row">
-      <div class="rounded basis-1/4 shadow-lg bg-white p-2 mr-2">
-        <h2 class="text-xl mb-2">Frontend</h2>
+      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mr-3">
+        <h2 class="text-xl mb-3">Frontend</h2>
         <div class="flex flex-wrap">
           <Tag
             v-if="tags.frontend?.length > 0"
@@ -81,8 +81,8 @@ const addTag = () => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/4 shadow-lg bg-white p-2 ml-2">
-        <h2 class="text-xl mb-2">Backend</h2>
+      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mx-3">
+        <h2 class="text-xl mb-3">Backend</h2>
         <div class="flex flex-wrap">
           <Tag
             v-if="tags.backend?.length > 0"
@@ -91,8 +91,8 @@ const addTag = () => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/4 shadow-lg bg-white p-2 ml-2">
-        <h2 class="text-xl mb-2">Fullstack</h2>
+      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mx-3">
+        <h2 class="text-xl mb-3">Fullstack</h2>
         <div class="flex flex-wrap">
           <Tag
             v-if="tags.fullstack?.length > 0"
@@ -101,8 +101,8 @@ const addTag = () => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/4 shadow-lg bg-white p-2 ml-2">
-        <h2 class="text-xl mb-2">Embedded</h2>
+      <div class="rounded basis-1/4 shadow-lg bg-white p-3 ml-3">
+        <h2 class="text-xl mb-3">Embedded</h2>
         <div class="flex flex-wrap">
           <Tag
             v-if="tags.embedded?.length > 0"
