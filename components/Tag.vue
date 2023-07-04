@@ -8,7 +8,9 @@
   </span>
 </template>
 <script setup lang="ts">
-defineProps<{ tag: string }>();
+import { TechTag } from "../types";
+
+defineProps<{ tag: TechTag }>();
 /* Cygni brand colors */
 const fullstackColors = ["#000735", "#440B45"];
 const backendColors = ["#00b3b0", "#00966d"];
