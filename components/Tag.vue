@@ -1,7 +1,7 @@
 <template>
   <span
     :id="'tag-' + tag"
-    class="text-white p-2 mr-2 rounded-xl"
+    class="text-white p-2 mr-2 mb-2 rounded-xl"
     :style="{ 'background-color': randomBackground(tag) }"
   >
     {{ tag.value ? tag.value : tag }}

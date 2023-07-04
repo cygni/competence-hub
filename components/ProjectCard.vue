@@ -6,7 +6,7 @@
     <h1 class="font-bold pb-4">{{ project.title }}</h1>
     <p class="truncate">{{ project.description }}</p>
     <p>{{ project.contact }}</p>
-    <div class="py-4 mt-auto">
+    <div class="flex flex-row flex-wrap py-4 mt-auto">
       <Tag v-for="tag in project.tags" :tag="tag" />
     </div>
   </div>

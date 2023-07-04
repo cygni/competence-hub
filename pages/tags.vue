@@ -64,21 +64,21 @@ const addTag = () => {
 </script>
 
 <template>
-  <div class="container text-gray-700">
+  <div class="text-gray-700">
     <h2 class="text-xl">Available tech-tags</h2>
-    <div class="flex -mx-2 mb-8">
-      <div class="flex rounded w-1/3 px-2 shadow-lg bg-white p-2 mr-2">
-        <div class="p-3">
+    <div class="flex flex-row">
+      <div class="rounded basis-1/3 shadow-lg bg-white p-2 mr-2">
+        <div class="flex flex-wrap">
           <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
         </div>
       </div>
-      <div class="flex rounded w-1/3 px-2 shadow-lg bg-white p-2 ml-2">
-        <div class="p-3">
+      <div class="rounded basis-1/3 shadow-lg bg-white p-2 ml-2">
+        <div class="flex flex-wrap">
           <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
         </div>
       </div>
-      <div class="flex rounded w-1/3 px-2 shadow-lg bg-white p-2 ml-2">
-        <div class="p-3">
+      <div class="rounded basis-1/3 shadow-lg bg-white p-2 ml-2">
+        <div class="flex flex-wrap">
           <Tag v-if="tags.length > 0" v-for="tag in tags" :tag="tag" />
         </div>
       </div>
