@@ -348,10 +348,10 @@
     "@esbuild-kit/core-utils" "^3.0.0"
     get-tsconfig "^4.4.0"
 
-"@esbuild/darwin-x64@0.17.19":
+"@esbuild/darwin-arm64@0.17.19":
   version "0.17.19"
-  resolved "https://registry.npmjs.org/@esbuild/darwin-x64/-/darwin-x64-0.17.19.tgz"
-  integrity sha512-IJM4JJsLhRYr9xdtLytPLSH9k/oxR3boaUIYiHkAawtwNOXKE8KoU8tMvryogdcT8AU+Bflmh81Xn6Q0vTZbQw==
+  resolved "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.17.19.tgz"
+  integrity sha512-80wEoCfF/hFKM6WE1FyBHc9SfUblloAWx6FJkFWTWiCoht9Mc0ARGEM47e67W9rI09YoUxJL68WHfDRYEAvOhg==
 
 "@fastify/busboy@^1.2.1":
   version "1.2.1"
@@ -2271,11 +2271,6 @@ axios@^0.27.2:
   dependencies:
     follow-redirects "^1.14.9"
     form-data "^4.0.0"
-
-babel-helper-vue-jsx-merge-props@^2.0.2:
-  version "2.0.3"
-  resolved "https://registry.npmjs.org/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-2.0.3.tgz"
-  integrity sha512-gsLiKK7Qrb7zYJNgiXKpXblxbV5ffSwR0f5whkPAaBAR4fhi6bwRZxX9wBlIc5M/v8CCkXUbXZL4N/nSE97cqg==
 
 balanced-match@^1.0.0:
   version "1.0.2"
@@ -7345,14 +7340,6 @@ smart-buffer@^4.2.0:
   resolved "https://registry.npmjs.org/smart-buffer/-/smart-buffer-4.2.0.tgz"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-smart-tagz@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/smart-tagz/-/smart-tagz-0.4.1.tgz"
-  integrity sha512-c36ybY13Q+Mk5jpYPYF9+XxSj4zaMRbtAtVicRudy2bNGmetfcKZeFB3sD7o+Fa4LPHKeeWmGgUyXULJWn43WQ==
-  dependencies:
-    escape-string-regexp "^5.0.0"
-    vue-feather-icons "^5.1.0"
-
 smob@^1.0.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/smob/-/smob-1.4.0.tgz"
@@ -8286,18 +8273,6 @@ vue-devtools-stub@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/vue-devtools-stub/-/vue-devtools-stub-0.1.0.tgz"
   integrity sha512-RutnB7X8c5hjq39NceArgXg28WZtZpGc3+J16ljMiYnFhKvd8hITxSWQSQ5bvldxMDU6gG5mkxl1MTQLXckVSQ==
-
-vue-feather-icons@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.npmjs.org/vue-feather-icons/-/vue-feather-icons-5.1.0.tgz"
-  integrity sha512-ZyM2yFGmL9DYLZYHm63KV1zCQOj8czC2LzDSkxoIp9o6zMAOY4yv1FkxbX+XNUwcH3RRrAuvf25Ij7CnUUsQVA==
-  dependencies:
-    babel-helper-vue-jsx-merge-props "^2.0.2"
-
-vue-multiselect@^3.0.0-beta.2:
-  version "3.0.0-beta.2"
-  resolved "https://registry.npmjs.org/vue-multiselect/-/vue-multiselect-3.0.0-beta.2.tgz"
-  integrity sha512-TFVHtI/KdWoD3Opzbkso8OIqkZlZEqFF7f2jlYx1ttgC4Jv/48IGlU5zn6cBR4p2bFDFGCHF5SkLCaadLhnBPQ==
 
 vue-router@^4.1.0, vue-router@^4.2.2:
   version "4.2.2"
