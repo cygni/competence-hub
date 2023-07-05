@@ -1,24 +1,28 @@
 <script setup lang="ts">
+import { collection } from "firebase/firestore";
 import { storeToRefs } from "pinia";
 import { useModeStore } from "../store/index";
 import { Mode, Project, TechTag } from "../types/index";
 
 const emit = defineEmits([
   "addToProject",
-  "updateProject",
   "deleteProject",
   "setEditMode",
+  "closeDialog",
 ]);
 const { selectedproject } = defineProps<{ selectedproject: Project }>();
 const modeStore = useModeStore();
 const { mode } = storeToRefs(modeStore);
+const tagOptions = useCollection(collection(useFirestore(), "competence-tags"));
 
 const title = ref("");
 const description = ref("");
 const contact = ref("");
-const tags = ref([]);
-let heading = ref("");
-let isInputDisabled = ref(
+const tags = ref<TechTag[]>([]);
+const comment = ref("");
+const link = ref("");
+const heading = ref("");
+const isInputDisabled = ref(
   mode.value === Mode.Edit || mode.value === Mode.New ? false : true
 );
 
@@ -27,28 +31,26 @@ if (mode.value === Mode.Read) {
   description.value = selectedproject.description;
   contact.value = selectedproject.contact;
   tags.value = selectedproject.tags;
+  comment.value = selectedproject.comment;
+  link.value = selectedproject.link;
 }
 
 watchEffect(() => {
   switch (mode.value) {
-    case Mode.Overview: {
-      heading.value = `Project ${selectedproject?.title}`;
-      isInputDisabled = true;
-      break;
-    }
+    case Mode.Overview:
     case Mode.Read: {
       heading.value = `Project ${selectedproject?.title}`;
-      isInputDisabled = true;
+      isInputDisabled.value = true;
       break;
     }
     case Mode.Edit: {
       heading.value = `Edit project ${selectedproject?.title}`;
-      isInputDisabled = false;
+      isInputDisabled.value = false;
       break;
     }
     case Mode.New: {
       heading.value = "Create new project";
-      isInputDisabled = false;
+      isInputDisabled.value = false;
       break;
     }
   }
@@ -56,13 +58,18 @@ watchEffect(() => {
 
 const submit = (e: any) => {
   e.preventDefault();
-  const emitMode = mode.value === Mode.New ? "addToProject" : "updateProject";
-  emit(emitMode, {
-    title: title.value,
-    description: description.value,
-    contact: contact.value,
-    tags: tags.value,
-  });
+  emit(
+    "addToProject",
+    {
+      title: title.value,
+      description: description.value,
+      contact: contact.value,
+      tags: tags.value,
+      comment: comment.value,
+      link: link.value,
+    },
+    mode.value
+  );
   e.target.reset();
 };
 
@@ -178,30 +185,65 @@ const deleteTag = (tag: TechTag) => {
         </label>
         <div class="relative">
           <select
-            class="appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            class="appearance-none cursor-pointer w-full border border-gray-200 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="project-tags"
             name="tags"
             v-model="tags"
             :disabled="isInputDisabled"
           >
-            <option v-for="tag in tags" :key="tag" :value="tag">
-              {{ tag }}
+            <option
+              v-for="tag in tagOptions"
+              :key="tag.value"
+              :value="tag.value"
+            >
+              {{ tag.value }}
             </option>
           </select>
           <div
             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
           >
-            <svg
-              class="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-              />
-            </svg>
+            <img
+              :onClick="() => $emit('closeDialog')"
+              src="assets/images/arrow-down.svg"
+              alt="arrow down"
+              width="20"
+            />
           </div>
         </div>
+      </div>
+      <div class="col-span-2">
+        <label
+          class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
+          for="project-comment"
+        >
+          Comments
+        </label>
+        <textarea
+          class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
+          id="project-comment"
+          placeholder="Enter the purpose of the project"
+          type="text"
+          required
+          v-model="comment"
+          :disabled="isInputDisabled"
+        />
+      </div>
+      <div class="col-span-2">
+        <label
+          class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
+          for="project-link"
+        >
+          Github
+        </label>
+        <input
+          class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
+          id="project-link"
+          type="link"
+          required
+          placeholder="Enter the projects github url"
+          v-model="link"
+          :disabled="isInputDisabled"
+        />
       </div>
 
       <div v-if="mode === Mode.Edit" class="mt-4">
@@ -214,8 +256,8 @@ const deleteTag = (tag: TechTag) => {
       </div>
 
       <div
-        class="col-span-2 flex justify-center items-center mt-4"
         v-if="mode === Mode.Edit || mode === Mode.New"
+        class="col-span-2 flex justify-center items-center mt-4"
       >
         <button class="w-full btn" type="submit">Submit</button>
       </div>

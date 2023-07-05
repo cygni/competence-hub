@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-white p-2 mr-2 mb-2 rounded-xl inline-flex duration-600 transition-all hover:scale-x-105 group"
+    class="text-white p-2 mr-2 mb-2 rounded-xl inline-flex transition max-w-20 group"
     :style="randomBackground(tag)"
   >
     <div :id="'tag-' + tag">
@@ -18,8 +18,7 @@
 
 <script setup lang="ts">
 import { TechTag } from "../types";
-
-defineProps<{ tag: TechTag; edit?: boolean }>();
+const props = defineProps<{ tag: TechTag; edit?: boolean }>();
 const emit = defineEmits(["setSelectedTag"]);
 
 /* Cygni brand colors */
@@ -88,7 +87,22 @@ const showConfirmDialog = (tag: TechTag) => {
 
 const closeDialogIfOutside = (ev: any) => {
   if (ev.target.id === "confirmDialog") {
-    closeDialog();
+    //closeDialog();
+  }
+
+  switch (props.tag.aspect) {
+    case "backend": {
+      const randomIndex = Math.floor(Math.random() * backendColors.length);
+      return backendColors[randomIndex];
+    }
+    case "frontend": {
+      const randomIndex = Math.floor(Math.random() * frontendColors.length);
+      return frontendColors[randomIndex];
+    }
+    case "fullstack": {
+      const randomIndex = Math.floor(Math.random() * fullstackColors.length);
+      return fullstackColors[randomIndex];
+    }
   }
 };
 </script>

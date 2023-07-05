@@ -1,19 +1,13 @@
-import {
-  collection,
-  deleteDoc,
-  doc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, deleteDoc, doc } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
-import { TechTag } from "../types";
+import { FilteredTags, TechTag } from "../types";
 
 const collection_name = "competence-tags";
 
 export const getFilteredTags = () => {
   const doc_refs = useCollection(collection(useFirestore(), collection_name));
 
-  const res = [];
+  const res: any[] = [];
 
   doc_refs.value.forEach((tag) => {
     res.push({
@@ -21,8 +15,7 @@ export const getFilteredTags = () => {
     });
   });
 
-  const filteredTags = filterTags(res);
-
+  const filteredTags: FilteredTags = filterTags(res);
   return filteredTags;
 };
 
@@ -33,7 +26,7 @@ export const deleteTag = (tag: TechTag) => {
 export const getAllTags = () => {
   const doc_refs = useCollection(collection(useFirestore(), collection_name));
 
-  const res = [];
+  const res: any[] = [];
 
   doc_refs.value.forEach((tag) => {
     res.push({
@@ -44,7 +37,7 @@ export const getAllTags = () => {
   return res;
 };
 
-export const filterTags = (tags) => {
+export const filterTags = (tags: any[]) => {
   let filter = { aspect: "frontend" };
   const frontendTags = tags?.filter(function (tag) {
     for (let key in filter) {
