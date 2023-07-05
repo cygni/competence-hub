@@ -6,9 +6,9 @@ import { Mode, Project, TechTag } from "../types/index";
 
 const emit = defineEmits([
   "addToProject",
-  "updateProject",
   "deleteProject",
   "setEditMode",
+  "closeDialog",
 ]);
 const { selectedproject } = defineProps<{ selectedproject: Project }>();
 const modeStore = useModeStore();
@@ -19,7 +19,7 @@ const title = ref("");
 const description = ref("");
 const contact = ref("");
 const tags = ref<TechTag[]>([]);
-const purpose = ref("");
+const comment = ref("");
 const link = ref("");
 const heading = ref("");
 const isInputDisabled = ref(
@@ -31,7 +31,7 @@ if (mode.value === Mode.Read) {
   description.value = selectedproject.description;
   contact.value = selectedproject.contact;
   tags.value = selectedproject.tags;
-  purpose.value = selectedproject.purpose;
+  comment.value = selectedproject.comment;
   link.value = selectedproject.link;
 }
 
@@ -58,13 +58,18 @@ watchEffect(() => {
 
 const submit = (e: any) => {
   e.preventDefault();
-  const emitMode = mode.value === Mode.New ? "addToProject" : "updateProject";
-  emit(emitMode, {
-    title: title.value,
-    description: description.value,
-    contact: contact.value,
-    tags: tags.value,
-  });
+  emit(
+    "addToProject",
+    {
+      title: title.value,
+      description: description.value,
+      contact: contact.value,
+      tags: tags.value,
+      comment: comment.value,
+      link: link.value,
+    },
+    mode.value
+  );
   e.target.reset();
 };
 </script>
@@ -204,17 +209,17 @@ const submit = (e: any) => {
       <div class="col-span-2">
         <label
           class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
-          for="project-purpose"
+          for="project-comment"
         >
-          Purpose of sharing
+          Comments
         </label>
         <textarea
           class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
-          id="project-purpose"
+          id="project-comment"
           placeholder="Enter the purpose of the project"
           type="text"
           required
-          v-model="purpose"
+          v-model="comment"
           :disabled="isInputDisabled"
         />
       </div>
