@@ -6,6 +6,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
+import { TechTag } from "../types";
 
 const collection_name = "competence-tags";
 
@@ -23,6 +24,10 @@ export const getFilteredTags = () => {
   const filteredTags = filterTags(res);
 
   return filteredTags;
+};
+
+export const deleteTag = (tag: TechTag) => {
+  deleteDoc(doc(useFirestore(), "competence-tags", tag.value));
 };
 
 export const getAllTags = () => {

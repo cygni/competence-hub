@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useModeStore } from "../store/index";
-import { Mode, Project } from "../types/index";
+import { Mode, Project, TechTag } from "../types/index";
 
 const emit = defineEmits([
   "addToProject",
@@ -64,6 +64,11 @@ const submit = (e: any) => {
     tags: tags.value,
   });
   e.target.reset();
+};
+
+const deleteTag = (tag: TechTag) => {
+  console.log("delete function");
+  console.log("tag to delete", tag);
 };
 </script>
 
@@ -200,7 +205,12 @@ const submit = (e: any) => {
       </div>
 
       <div v-if="mode === Mode.Edit" class="mt-4">
-        <Tag v-for="tag in selectedproject.tags" :tag="tag" :edit="true" />
+        <Tag
+          v-for="tag in selectedproject.tags"
+          :tag="tag"
+          :edit="true"
+          @deleteTag="deleteTag"
+        />
       </div>
 
       <div
