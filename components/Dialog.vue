@@ -1,5 +1,5 @@
 <template>
-  <dialog id="projectDialog" class="min-w-[33%] p-0 shadow rounded-lg">
+  <dialog :id="id" class="min-w-[33%] p-0 shadow rounded-lg">
     <slot></slot>
   </dialog>
 </template>
@@ -19,3 +19,7 @@ dialog[open] {
   }
 }
 </style>
+
+<script setup lang="ts">
+const { id } = defineProps(["id"]);
+</script>

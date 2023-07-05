@@ -56,6 +56,7 @@ const updateProject = (project: Project) => {
   setReadMode();
   readProject();
 };
+
 const deleteProject = (title: string) => {
   deleteDoc(doc(useFirestore(), "competence-projects", title));
   closeDialog();
@@ -83,6 +84,7 @@ function closeDialogIfOutside(ev: any) {
     closeDialog();
   }
 }
+
 function closeDialog() {
   const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
   dialog.removeEventListener("click", closeDialogIfOutside);
@@ -109,7 +111,7 @@ function closeDialog() {
       <button class="btn" :onClick="setOverviewMode">Go to overview</button>
     </div>
 
-    <Dialog>
+    <Dialog id="projectDialog">
       <div v-if="mode != Mode.Overview" id="wrapper">
         <Form
           :selectedproject="selectedproject"

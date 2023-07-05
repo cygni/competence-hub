@@ -21,4 +21,5 @@ export enum Aspect {
   Backend = 0,
   Fullstack,
   Frontend,
+  Embedded,
 }

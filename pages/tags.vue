@@ -10,9 +10,9 @@ import { useCollection, useFirestore } from "vuefire";
 import { Aspect } from "../types/index";
 import { getFilteredTags, getAllTags } from "../api/tags";
 
-// let tags = useCollection(collection(useFirestore(), "competence-tags"));
 let newTag = { value: "", aspect: "" };
 let tags = ref(getFilteredTags());
+let selectedTag = ref(<TechTag>{ value: "", aspect: "" });
 
 console.log("tags tags tags", tags);
 
@@ -43,6 +43,10 @@ const addTag = () => {
         aspect = "backend";
         break;
       }
+      case Aspect.Embedded: {
+        aspect = "embedded";
+        break;
+      }
     }
     if (newTag.value != "" || aspect != "") {
       setDoc(doc(useFirestore(), "competence-tags", newTag.value), {
@@ -61,42 +65,74 @@ const addTag = () => {
     });
   }
 };
+
+const updateTagsList = () => {
+  setTimeout(() => {
+    tags.value = getFilteredTags();
+  }, 1000);
+};
+
+const setSelectedTag = (tag: TechTag) => {
+  console.log("set selectedTag", tag);
+  selectedTag.value = tag;
+};
 </script>
 
 <template>
   <div class="text-gray-700">
-    <h2 class="text-xl">Available tech-tags</h2>
+    <h2 class="text-2xl mb-6">Available tech-tags</h2>
     <div class="flex flex-row">
-      <div class="rounded basis-1/3 shadow-lg bg-white p-2 mr-2">
-        <div class="flex flex-wrap">
+      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mr-3">
+        <h2 class="text-xl mb-3">Frontend</h2>
+        <div class="flex flex-wrap max-w-[80%]">
           <Tag
+            :edit="true"
             v-if="tags.frontend?.length > 0"
             v-for="tag in tags.frontend"
             :tag="tag"
+            @setSelectedTag="setSelectedTag"
           />
         </div>
       </div>
-      <div class="rounded basis-1/3 shadow-lg bg-white p-2 ml-2">
-        <div class="flex flex-wrap">
+      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mx-3">
+        <h2 class="text-xl mb-3">Backend</h2>
+        <div class="flex flex-wrap max-w-[80%]">
           <Tag
+            :edit="true"
             v-if="tags.backend?.length > 0"
             v-for="tag in tags.backend"
             :tag="tag"
+            @setSelectedTag="setSelectedTag"
           />
         </div>
       </div>
-      <div class="rounded basis-1/3 shadow-lg bg-white p-2 ml-2">
-        <div class="flex flex-wrap">
+      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mx-3">
+        <h2 class="text-xl mb-3">Fullstack</h2>
+        <div class="flex flex-wrap max-w-[80%]">
           <Tag
+            :edit="true"
             v-if="tags.fullstack?.length > 0"
             v-for="tag in tags.fullstack"
             :tag="tag"
+            @setSelectedTag="setSelectedTag"
+          />
+        </div>
+      </div>
+      <div class="rounded basis-1/4 shadow-lg bg-white p-3 ml-3">
+        <h2 class="text-xl mb-3">Embedded</h2>
+        <div class="flex flex-wrap max-w-[80%]">
+          <Tag
+            :edit="true"
+            v-if="tags.embedded?.length > 0"
+            v-for="tag in tags.embedded"
+            :tag="tag"
+            @setSelectedTag="setSelectedTag"
           />
         </div>
       </div>
     </div>
 
-    <form class="grid grid-cols-1 gap-4 mt-9" :onSubmit="submit">
+    <form class="grid grid-cols-1 gap-3 mt-9" :onSubmit="submit">
       <div class="col-span-1 max-w-md">
         <label
           class="uppercase tracking-wider text-xs font-bold text-gray-700"
@@ -111,7 +147,7 @@ const addTag = () => {
           placeholder="New tech tag..."
         />
       </div>
-      <div class="col-span-1 max-w-md">
+      <div class="col-span-1 max-w-lg">
         <label class="uppercase tracking-wider text-xs font-bold text-gray-700"
           >Aspect</label
         >
@@ -142,12 +178,21 @@ const addTag = () => {
             v-model="newTag.aspect"
           />
           <label class="mr-8" for="fullstack">Fullstack</label>
+          <input
+            class="mr-2"
+            type="radio"
+            id="embedded"
+            :value="Aspect.Embedded"
+            v-model="newTag.aspect"
+          />
+          <label class="mr-8" for="embedded">Embedded</label>
         </div>
       </div>
     </form>
+    <ConfirmDialog :tag="selectedTag" @updateTagsList="updateTagsList" />
 
-    <div class="col-span-1 flex justify-center items-center mt-4 max-w-xs">
-      <button class="w-full btn" :onClick="addTag">Add tech tag</button>
+    <div class="col-span-1 mt-4">
+      <button class="btn" :onClick="addTag">Add tech tag</button>
     </div>
   </div>
 </template>
