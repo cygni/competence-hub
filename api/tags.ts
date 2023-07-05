@@ -1,5 +1,6 @@
 import { collection } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
+import { TechTag } from "../types";
 
 const collection_name = "competence-tags";
 
@@ -17,6 +18,10 @@ export const getFilteredTags = () => {
   const filteredTags = filterTags(res);
 
   return filteredTags;
+};
+
+export const deleteTag = (tag: TechTag) => {
+  deleteDoc(doc(useFirestore(), "competence-tags", tag.value));
 };
 
 export const getAllTags = () => {
@@ -58,9 +63,18 @@ export const filterTags = (tags) => {
     return true;
   });
 
+  filter.aspect = "embedded";
+  const embeddedTags = tags?.filter(function (tag) {
+    for (let key in filter) {
+      if (tag[key] === undefined || tag[key] != filter[key]) return false;
+    }
+    return true;
+  });
+
   return {
     fullstack: fullstackTags,
     frontend: frontendTags,
     backend: backendTags,
+    embedded: embeddedTags,
   };
 };

@@ -24,4 +24,5 @@ export enum Aspect {
   Backend = "backend",
   Fullstack = "fullstack",
   Frontend = "frontend",
+  Embedded = "embedded",
 }

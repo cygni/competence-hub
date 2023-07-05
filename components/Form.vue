@@ -72,6 +72,11 @@ const submit = (e: any) => {
   );
   e.target.reset();
 };
+
+const deleteTag = (tag: TechTag) => {
+  console.log("delete function");
+  console.log("tag to delete", tag);
+};
 </script>
 
 <template>
@@ -242,7 +247,12 @@ const submit = (e: any) => {
       </div>
 
       <div v-if="mode === Mode.Edit" class="mt-4">
-        <Tag v-for="tag in selectedproject.tags" :tag="tag" :edit="true" />
+        <Tag
+          v-for="tag in selectedproject.tags"
+          :tag="tag"
+          :edit="true"
+          @deleteTag="deleteTag"
+        />
       </div>
 
       <div
