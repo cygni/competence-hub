@@ -1,36 +1,25 @@
 <script setup lang="ts">
-import {
-  collection,
-  deleteDoc,
-  doc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
-import { useCollection, useFirestore } from "vuefire";
-import { Aspect } from "../types/index";
-import { getFilteredTags, getAllTags } from "../api/tags";
+import { doc, setDoc } from "firebase/firestore";
+import { useFirestore } from "vuefire";
+import { getAllTags, getFilteredTags } from "~/api/tags";
+import { Aspect, FilteredTags, TechTag } from "../types/index";
 
-let newTag = { value: "", aspect: "" };
-let tags = ref(getFilteredTags());
+let newTag = ref({ value: "", aspect: "" });
+let tags = ref<FilteredTags>(getFilteredTags());
 let selectedTag = ref(<TechTag>{ value: "", aspect: "" });
 
-console.log("tags tags tags", tags);
-
-const isDuplicate = (newTagValue) => {
-  let tagValues = getAllTags().map(function (tag) {
-    return tag.value;
-  });
-  console.log(tagValues);
-  if (tagValues.includes(newTagValue)) {
-    return true;
-  }
+const isDuplicate = (newTagValue: string) => {
+  const tagValues = getAllTags().map((tag) => tag.value);
+  return tagValues.includes(newTagValue);
 };
 
 const addTag = () => {
-  if (!isDuplicate(newTag.value)) {
+  console.log("tag", newTag);
+
+  if (!isDuplicate(newTag.value.value)) {
     let aspect = "";
 
-    switch (newTag.aspect) {
+    switch (newTag.value.aspect) {
       case Aspect.Fullstack: {
         aspect = "fullstack";
         break;
@@ -48,16 +37,14 @@ const addTag = () => {
         break;
       }
     }
-    if (newTag.value != "" || aspect != "") {
-      setDoc(doc(useFirestore(), "competence-tags", newTag.value), {
+    if (newTag.value.value != "" || aspect != "") {
+      setDoc(doc(useFirestore(), "competence-tags", newTag.value.value), {
         aspect: aspect,
-        value: newTag.value,
+        value: newTag.value.value,
+      }).then(() => {
+        tags.value = getFilteredTags();
       });
     }
-
-    setTimeout(() => {
-      tags.value = getFilteredTags();
-    }, 2000);
   } else {
     throw createError({
       statusCode: 403,
@@ -132,7 +119,7 @@ const setSelectedTag = (tag: TechTag) => {
       </div>
     </div>
 
-    <form class="grid grid-cols-1 gap-3 mt-9" :onSubmit="submit">
+    <form class="grid grid-cols-1 gap-4 mt-9" :onSubmit="addTag">
       <div class="col-span-1 max-w-md">
         <label
           class="uppercase tracking-wider text-xs font-bold text-gray-700"
@@ -191,8 +178,14 @@ const setSelectedTag = (tag: TechTag) => {
     </form>
     <ConfirmDialog :tag="selectedTag" @updateTagsList="updateTagsList" />
 
-    <div class="col-span-1 mt-4">
-      <button class="btn" :onClick="addTag">Add tech tag</button>
+    <div class="col-span-1 flex justify-center items-center mt-4 max-w-xs">
+      <button
+        class="w-full btn"
+        @click="addTag"
+        :disabled="!newTag.value || !newTag.aspect"
+      >
+        Add tech tag
+      </button>
     </div>
   </div>
 </template>

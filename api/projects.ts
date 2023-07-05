@@ -1,7 +1,10 @@
+import { collection } from "firebase/firestore";
+import { useCollection, useFirestore } from "vuefire";
+
 export default defineEventHandler(async (event) => {
   try {
-    const data = await $fetch(
-      "https://competence-hub-default-rtdb.europe-west1.firebasedatabase.app/projects.json"
+    const data = useCollection(
+      collection(useFirestore(), "competence-projects")
     );
     return data;
   } catch (error) {

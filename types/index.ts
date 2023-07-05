@@ -1,8 +1,11 @@
 export type Project = {
+  id?: string;
   title: string;
   description: string;
   contact: string;
-  tags: string[];
+  tags: TechTag[];
+  comment: string;
+  link: string;
 };
 
 export type TechTag = {
@@ -18,8 +21,15 @@ export enum Mode {
 }
 
 export enum Aspect {
-  Backend = 0,
-  Fullstack,
-  Frontend,
-  Embedded,
+  Backend = "backend",
+  Fullstack = "fullstack",
+  Frontend = "frontend",
+  Embedded = "embedded",
 }
+
+export type FilteredTags = {
+  fullstack: TechTag[];
+  frontend: TechTag[];
+  backend: TechTag[];
+  embedded: TechTag[];
+};
