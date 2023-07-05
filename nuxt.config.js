@@ -16,12 +16,13 @@ export default defineNuxtConfig({
   vuefire: {
     auth: true,
     config: {
-      apiKey: "AIzaSyAxPNtT3asb3vcsXIeg-DDKfQQYnY2-eLQ",
-      authDomain: "cygni-competence-hub.firebaseapp.com",
-      projectId: "cygni-competence-hub",
-      storageBucket: "cygni-competence-hub.appspot.com",
-      messagingSenderId: "936812239764",
-      appId: "1:936812239764:web:c67f45faed8254fd4e8d81",
+      apiKey: "AIzaSyCv2SZo5e62v566bJOgLRPe5erL7VCUGok",
+      authDomain: "cygnicompetencehub.firebaseapp.com",
+      projectId: "cygnicompetencehub",
+      storageBucket: "cygnicompetencehub.appspot.com",
+      messagingSenderId: "225273337132",
+      appId: "1:225273337132:web:161ab4d7909b78531e0889",
+      measurementId: "G-JY96C7V423",
     },
     admin: {
       serviceAccount: "credentials.json",
