@@ -12,7 +12,13 @@
 }
 html {
   @apply h-full;
-  @apply bg-slate-100;
+  color: #000735;
+  background: linear-gradient(
+    135deg,
+    rgba(234, 184, 178, 0.25),
+    rgba(227, 217, 215, 0.25),
+    rgba(234, 184, 178, 0.25)
+  );
 }
 
 html,
@@ -28,6 +34,12 @@ h3,
 h4,
 h5 {
   font-family: var(--font-barlow-condensed);
+}
+
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
 }
 
 @layer components {

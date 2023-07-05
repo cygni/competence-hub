@@ -1,9 +1,10 @@
 export type Project = {
+  id?: string;
   title: string;
   description: string;
   contact: string;
   tags: TechTag[];
-  purpose: string;
+  comment: string;
   link: string;
 };
 
@@ -20,7 +21,7 @@ export enum Mode {
 }
 
 export enum Aspect {
-  Backend = 0,
-  Fullstack,
-  Frontend,
+  Backend = "backend",
+  Fullstack = "fullstack",
+  Frontend = "frontend",
 }
