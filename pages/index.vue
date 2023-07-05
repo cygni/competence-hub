@@ -24,38 +24,37 @@ const { getMode } = storeToRefs(modeStore);
 const mode = getMode.value;
 const { setReadMode, setEditMode, setNewMode, setOverviewMode } = modeStore;
 
-const addToProject = (project: Project) => {
-  if (
-    project.title != "" ||
-    project.description != "" ||
-    project.contact != ""
-  ) {
-    setDoc(doc(useFirestore(), "competence-projects", project.title), {
-      title: project.title,
-      description: project.description,
-      contact: project.contact,
-      tags: project.tags,
-    });
-  }
-  modeStore.setReadMode();
-  readProject();
-};
-const updateProject = (project: Project) => {
-  if (
-    project.title != "" ||
-    project.description != "" ||
-    project.contact != ""
-  ) {
-    updateDoc(doc(useFirestore(), "competence-projects", project.title), {
-      title: project.title,
-      description: project.description,
-      contact: project.contact,
-      tags: project.tags,
-    });
+const addToProject = (p: Project, mode: string) => {
+  if (isProjectFormValid(p)) {
+    const body = {
+      id: p.id,
+      title: p.title,
+      description: p.description,
+      contact: p.contact,
+      tags: p.tags,
+      comment: p.comment,
+      link: p.link,
+    };
+    mode === Mode.New
+      ? setDoc(doc(useFirestore(), "competence-projects", p.title), body)
+      : updateDoc(doc(useFirestore(), "competence-projects", p.title), body);
   }
   setReadMode();
   readProject();
+  closeDialog();
 };
+
+const isProjectFormValid = (p: Project) => {
+  return (
+    p.title != "" ||
+    p.description != "" ||
+    p.contact != "" ||
+    p.comment != "" ||
+    p.link != "" ||
+    p.tags.length === 0
+  );
+};
+
 const deleteProject = (title: string) => {
   deleteDoc(doc(useFirestore(), "competence-projects", title));
   closeDialog();
@@ -114,7 +113,6 @@ function closeDialog() {
         <Form
           :selectedproject="selectedproject"
           @addToProject="addToProject"
-          @updateProject="updateProject"
           @deleteProject="deleteProject"
           @setEditMode="setEditMode"
           @closeDialog="closeDialog"
