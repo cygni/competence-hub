@@ -1,7 +1,7 @@
 <template>
   <div
     class="text-white p-2 mr-2 mb-2 rounded-xl inline-flex transition max-w-20 group"
-    :style="{ 'background-color': randomBackground(tag) }"
+    :style="randomBackground(tag)"
   >
     <div :id="'tag-' + tag">
       {{ tag.value ? tag.value : tag }}

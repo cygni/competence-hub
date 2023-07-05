@@ -26,3 +26,10 @@ export enum Aspect {
   Frontend = "frontend",
   Embedded = "embedded",
 }
+
+export type FilteredTags = {
+  fullstack: TechTag[];
+  frontend: TechTag[];
+  backend: TechTag[];
+  embedded: TechTag[];
+};
