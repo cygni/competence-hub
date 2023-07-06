@@ -18,7 +18,7 @@ if (!projects) {
   throw createError({ statusCode: 404, statusMessage: "No projects" });
 }
 
-let selectedproject = ref<Project>();
+const selectedproject = ref<Project>();
 const modeStore = useModeStore();
 const { getMode } = storeToRefs(modeStore);
 const mode = getMode.value;
@@ -27,7 +27,7 @@ const { setReadMode, setEditMode, setNewMode, setOverviewMode } = modeStore;
 const addToProject = (p: Project, mode: string) => {
   if (isProjectFormValid(p)) {
     const body = {
-      id: p.id,
+      id: p.id ?? crypto.randomUUID(),
       title: p.title,
       description: p.description,
       contact: p.contact,
@@ -35,13 +35,16 @@ const addToProject = (p: Project, mode: string) => {
       comment: p.comment,
       link: p.link,
     };
-    mode === Mode.New
-      ? setDoc(doc(useFirestore(), "competence-projects", p.title), body)
-      : updateDoc(doc(useFirestore(), "competence-projects", p.title), body);
+    new Promise((resolve, reject) => {
+      mode === Mode.New
+        ? setDoc(doc(useFirestore(), "competence-projects", body.id), body)
+        : updateDoc(doc(useFirestore(), "competence-projects", body.id), body);
+      resolve(null);
+    }).then(() => {
+      setReadMode();
+      closeDialog();
+    });
   }
-  setReadMode();
-  readProject();
-  closeDialog();
 };
 
 const isProjectFormValid = (p: Project) => {
@@ -51,17 +54,13 @@ const isProjectFormValid = (p: Project) => {
     p.contact != "" ||
     p.comment != "" ||
     p.link != "" ||
-    p.tags.length === 0
+    p.tags.length !== 0
   );
 };
 
 const deleteProject = (title: string) => {
   deleteDoc(doc(useFirestore(), "competence-projects", title));
   closeDialog();
-};
-
-const readProject = () => {
-  projects = useCollection(collection(useFirestore(), "competence-projects"));
 };
 
 const showDialog = (project?: Project) => {
@@ -78,9 +77,7 @@ const showDialog = (project?: Project) => {
 };
 
 function closeDialogIfOutside(ev: any) {
-  if (ev.target.id === "projectDialog") {
-    closeDialog();
-  }
+  if (ev.target.id === "projectDialog") closeDialog();
 }
 
 function closeDialog() {

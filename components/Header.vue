@@ -1,4 +1,10 @@
-<script setup></script>
+<script setup>
+const links = [
+  { title: "Home", link: "/" },
+  { title: "Tags", link: "/tags" },
+  { title: "About", link: "/about" },
+];
+</script>
 
 <template>
   <header
@@ -15,14 +21,18 @@
     </div>
     <nav class="mt-4 md:mt-0">
       <ul class="flex gap-8 text-2xl tracking-wider">
-        <li class="transition hover:text-[#eab8b2]">
-          <NuxtLink to="/">Home</NuxtLink>
-        </li>
-        <li class="transition hover:text-[#eab8b2]">
-          <NuxtLink to="/about">About</NuxtLink>
-        </li>
-        <li class="transition hover:text-[#eab8b2]">
-          <NuxtLink to="/tags">Tags</NuxtLink>
+        <!--        <li>
+          <img
+            :onclick="createNewProject"
+            src="assets/images/add.svg"
+            alt="create new project button"
+            class="cursor-pointer transition hover:stroke-[#eab8b2]"
+            width="35"
+            height="35"
+          />
+        </li> -->
+        <li v-for="l in links" class="transition hover:text-[#eab8b2]">
+          <NuxtLink :to="l.link">{{ l.title }}</NuxtLink>
         </li>
         <li>
           <img
