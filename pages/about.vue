@@ -1,7 +1,7 @@
 <template>
   <button class="transition inline-flex items-center text-2xl">
     <img
-      src="assets/images/github.svg"
+      src="../assets/images/github.svg"
       class="mr-4"
       alt="edit"
       width="50"

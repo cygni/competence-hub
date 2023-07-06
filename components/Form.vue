@@ -91,7 +91,7 @@ const deleteTag = (tag: TechTag) => {
           class="btn bg-blue-500 hover:bg-blue-700 inline-flex"
         >
           <img
-            src="assets/images/edit.svg"
+            src="../assets/images/edit.svg"
             class="mr-2"
             alt="edit"
             width="20"
@@ -106,7 +106,7 @@ const deleteTag = (tag: TechTag) => {
           :onClick="() => $emit('deleteProject', title)"
         >
           <img
-            src="assets/images/delete.svg"
+            src="../assets/images/delete.svg"
             class="mr-2"
             alt="delete"
             width="20"
@@ -116,7 +116,7 @@ const deleteTag = (tag: TechTag) => {
         </button>
         <img
           :onClick="() => $emit('closeDialog')"
-          src="assets/images/close.svg"
+          src="../assets/images/close.svg"
           class="ml-4 cursor-pointer transition hover:bg-gray-200 rounded-full"
           alt="close"
           width="30"
@@ -204,7 +204,7 @@ const deleteTag = (tag: TechTag) => {
           >
             <img
               :onClick="() => $emit('closeDialog')"
-              src="assets/images/arrow-down.svg"
+              src="../assets/images/arrow-down.svg"
               alt="arrow down"
               width="20"
             />
