@@ -8,7 +8,7 @@
     </div>
     <div
       v-if="edit"
-      :onClick="() => showConfirmDialog(tag)"
+      :onClick="() => $emit('deleteTag', tag)"
       class="cursor-pointer transition-width ease-in-out max-w-0 group-hover:max-w-full"
     >
       <img src="../assets/images/close-white.svg" alt="delete" width="25" />
@@ -18,33 +18,16 @@
 
 <script setup lang="ts">
 import { TechTag } from "../types";
-const props = defineProps<{ tag: TechTag; edit?: boolean }>();
-const emit = defineEmits(["setSelectedTag"]);
+defineProps<{ tag: TechTag; edit?: boolean }>();
+defineEmits(["deleteTag"]);
 
 /* Cygni brand colors */
 const fullstackColors = ["#000735", "#440B45"];
 const backendColors = ["#00b3b0", "#00966d"];
 const frontendColors = ["#eab8b2", "#DD5928"];
 const embeddedColors = ["#f9e79f", "#e3d9d7"];
-const colors = [
-  "#000735",
-  "#eab8b2",
-  "#231F20",
-  "#440B45",
-  "#DD5928",
-  "#0f4c81",
-  "#00b3b0",
-  "#00966d",
-  "#f9e79f",
-];
-const randomBackground = (tag: TechTag) => {
-  if (!tag.aspect) {
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return {
-      "background-color": colors[randomIndex],
-    };
-  }
 
+const randomBackground = (tag: TechTag) => {
   switch (tag.aspect) {
     case "backend": {
       const randomIndex = Math.floor(Math.random() * backendColors.length);
@@ -71,38 +54,17 @@ const randomBackground = (tag: TechTag) => {
         color: "#000735",
       };
     }
-  }
-};
-
-const showConfirmDialog = (tag: TechTag) => {
-  console.log("lalala");
-  console.log("show confirm dialog set selected tag", tag);
-  emit("setSelectedTag", tag);
-
-  const dialog = <HTMLDialogElement>document.getElementById("confirmDialog");
-  dialog.addEventListener("click", closeDialogIfOutside);
-  dialog.addEventListener("cancel", closeDialogIfOutside);
-  dialog.showModal();
-};
-
-const closeDialogIfOutside = (ev: any) => {
-  if (ev.target.id === "confirmDialog") {
-    //closeDialog();
-  }
-
-  switch (props.tag.aspect) {
-    case "backend": {
-      const randomIndex = Math.floor(Math.random() * backendColors.length);
-      return backendColors[randomIndex];
-    }
-    case "frontend": {
-      const randomIndex = Math.floor(Math.random() * frontendColors.length);
-      return frontendColors[randomIndex];
-    }
-    case "fullstack": {
-      const randomIndex = Math.floor(Math.random() * fullstackColors.length);
-      return fullstackColors[randomIndex];
-    }
+    default:
+      const allColors = [
+        fullstackColors,
+        backendColors,
+        frontendColors,
+        embeddedColors,
+      ].flat();
+      const randomIndex = Math.floor(Math.random() * allColors.length);
+      return {
+        "background-color": allColors[randomIndex],
+      };
   }
 };
 </script>
