@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { doc, setDoc } from "firebase/firestore";
 import { useFirestore } from "vuefire";
-import { getAllTags, getFilteredTags } from "~/api/tags";
+import { deleteTag, getAllTags, getFilteredTags } from "~/api/tags";
+import { openDialog } from "../helper/dialog";
 import { Aspect, FilteredTags, TechTag } from "../types/index";
 
 let newTag = ref({ value: "", aspect: "" });
@@ -14,8 +15,6 @@ const isDuplicate = (newTagValue: string) => {
 };
 
 const addTag = () => {
-  console.log("tag", newTag);
-
   if (!isDuplicate(newTag.value.value)) {
     let aspect = "";
 
@@ -46,6 +45,7 @@ const addTag = () => {
       });
     }
   } else {
+    alert("Can't add duplicate tech tags");
     throw createError({
       statusCode: 403,
       statusMessage: "Cant add duplicate tech tags",
@@ -53,10 +53,15 @@ const addTag = () => {
   }
 };
 
-const updateTagsList = () => {
-  setTimeout(() => {
-    tags.value = getFilteredTags();
-  }, 1000);
+const removeSelectedTag = (selectedTag: TechTag) => {
+  new Promise((resolve, reject) => {
+    deleteTag(selectedTag);
+    resolve(null);
+  }).then(() => {
+    setTimeout(() => {
+      tags.value = getFilteredTags();
+    }, 1000);
+  });
 };
 
 const showConfirmDialog = (tag: TechTag) => {
@@ -77,7 +82,7 @@ const showConfirmDialog = (tag: TechTag) => {
             v-if="tags.frontend?.length > 0"
             v-for="tag in tags.frontend"
             :tag="tag"
-            @setSelectedTag="setSelectedTag"
+            @deleteTag="showConfirmDialog"
           />
         </div>
       </div>
@@ -89,7 +94,7 @@ const showConfirmDialog = (tag: TechTag) => {
             v-if="tags.backend?.length > 0"
             v-for="tag in tags.backend"
             :tag="tag"
-            @setSelectedTag="setSelectedTag"
+            @deleteTag="showConfirmDialog"
           />
         </div>
       </div>
@@ -101,7 +106,7 @@ const showConfirmDialog = (tag: TechTag) => {
             v-if="tags.fullstack?.length > 0"
             v-for="tag in tags.fullstack"
             :tag="tag"
-            @setSelectedTag="setSelectedTag"
+            @deleteTag="showConfirmDialog"
           />
         </div>
       </div>
@@ -113,7 +118,7 @@ const showConfirmDialog = (tag: TechTag) => {
             v-if="tags.embedded?.length > 0"
             v-for="tag in tags.embedded"
             :tag="tag"
-            @setSelectedTag="setSelectedTag"
+            @deleteTag="showConfirmDialog"
           />
         </div>
       </div>

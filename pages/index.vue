@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import {
-  collection,
-  deleteDoc,
-  doc,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection } from "firebase/firestore";
 import createError from "http-errors";
 import { storeToRefs } from "pinia";
 import { useCollection, useFirestore } from "vuefire";
+import { closeDialog, openDialog } from "~/helper/dialog";
 import { useModeStore } from "../store/index";
 import { Mode, Project } from "../types/index";
 
@@ -22,29 +17,11 @@ const selectedproject = ref<Project>();
 const modeStore = useModeStore();
 const { getMode } = storeToRefs(modeStore);
 const mode = getMode.value;
-const { setReadMode, setEditMode, setNewMode, setOverviewMode } = modeStore;
+const { setReadMode, setNewMode, setOverviewMode } = modeStore;
 
-const addToProject = (p: Project, mode: string) => {
-  if (isProjectFormValid(p)) {
-    const body = {
-      id: p.id ?? crypto.randomUUID(),
-      title: p.title,
-      description: p.description,
-      contact: p.contact,
-      tags: p.tags,
-      comment: p.comment,
-      link: p.link,
-    };
-    new Promise((resolve, reject) => {
-      mode === Mode.New
-        ? setDoc(doc(useFirestore(), "competence-projects", body.id), body)
-        : updateDoc(doc(useFirestore(), "competence-projects", body.id), body);
-      resolve(null);
-    }).then(() => {
-      setReadMode();
-      closeDialog();
-    });
-  }
+const onProjectChanged = () => {
+  setReadMode();
+  close();
 };
 
 const open = (project?: Project) => {
