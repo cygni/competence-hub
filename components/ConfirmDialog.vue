@@ -42,12 +42,10 @@
             />
           </svg>
           <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-            Are you sure you want to delete the tag
-            <u>{{ tag.value }}</u
-            >?
+            {{ title }}
           </h3>
           <button
-            :onClick="() => confirmDeleteTag(tag)"
+            :onClick="() => callback()"
             data-modal-hide="popup-modal"
             type="button"
             class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
@@ -69,28 +67,11 @@
 </template>
 
 <script setup lang="ts">
-import { deleteTag } from "../api/tags";
-
-defineProps<{ tag: TechTag }>();
-const emit = defineEmits(["updateTagsList"]);
-
-const closeDialogIfOutside = (ev: any) => {
-  if (ev.target.id === "confirmDialog") {
-    closeDialog();
-  }
-};
-
-const closeDialog = (e) => {
-  const dialog = <HTMLDialogElement>document.getElementById("confirmDialog");
-  dialog.removeEventListener("click", closeDialogIfOutside);
-  dialog.removeEventListener("cancel", closeDialogIfOutside);
-  dialog.close();
-};
-
-const confirmDeleteTag = (tag: TechTag) => {
-  console.log("delete tag hmm", tag);
-  deleteTag(tag);
-  emit("updateTagsList");
+defineProps<{ title: string }>();
+const emit = defineEmits(["callbackFn"]);
+import { closeDialog } from "../helper/dialog";
+const callback = () => {
+  emit("callbackFn");
   closeDialog();
 };
 </script>

@@ -1,10 +1,10 @@
 export type Project = {
-  id?: string;
+  id: string;
   title: string;
   description: string;
   contact: string;
   tags: TechTag[];
-  comment: string;
+  purpose: string;
   link: string;
 };
 
