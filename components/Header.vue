@@ -13,7 +13,7 @@ const links = [
     <div class="flex items-center">
       <h1 class="text-2xl tracking-wider mr-4">Cygni Competence Hub</h1>
       <img
-        src="assets/images/smirk.svg"
+        src="../assets/images/smirk.svg"
         alt="cygni logo"
         width="50"
         height="50"
@@ -37,7 +37,7 @@ const links = [
         <li>
           <img
             onclick="window.open('https://github.com/cygni/competence-hub/')"
-            src="assets/images/github-white.svg"
+            src="../assets/images/github-white.svg"
             alt="github link"
             class="cursor-pointer transition hover:brightness-90"
             width="35"

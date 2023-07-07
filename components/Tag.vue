@@ -11,7 +11,7 @@
       :onClick="() => showConfirmDialog(tag)"
       class="cursor-pointer transition-width ease-in-out max-w-0 group-hover:max-w-full"
     >
-      <img src="assets/images/close-white.svg" alt="delete" width="25" />
+      <img src="../assets/images/close-white.svg" alt="delete" width="25" />
     </div>
   </div>
 </template>

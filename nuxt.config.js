@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { ServiceAccount } from "./config/serviceAccount.js";
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-vuefire"],
@@ -13,6 +15,7 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
+  ssr: true,
   vuefire: {
     auth: true,
     config: {
@@ -25,7 +28,7 @@ export default defineNuxtConfig({
       measurementId: "G-JY96C7V423",
     },
     admin: {
-      serviceAccount: "credentials.json",
+      serviceAccount: ServiceAccount,
     },
   },
 });

@@ -8,7 +8,7 @@ const firebaseConfig = {
   messagingSenderId: "225273337132",
   appId: "1:225273337132:web:161ab4d7909b78531e0889",
   measurementId: "G-JY96C7V423",
+  databaseURL: `https://${process.env.FIREBASE_PROJECT_ID}.firebaseio.com/`,
 };
 
-const app = initializeApp(firebaseConfig);
 export default defineNuxtPlugin(() => {});

@@ -38,7 +38,7 @@ export const getAllTags = () => {
 };
 
 export const filterTags = (tags: any[]) => {
-  let filter = { aspect: "frontend" };
+  let filter: { [aspect: string]: string } = { aspect: "frontend" };
   const frontendTags = tags?.filter(function (tag) {
     for (let key in filter) {
       if (tag[key] === undefined || tag[key] != filter[key]) return false;
