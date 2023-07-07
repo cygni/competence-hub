@@ -47,44 +47,18 @@ const addToProject = (p: Project, mode: string) => {
   }
 };
 
-const isProjectFormValid = (p: Project) => {
-  return (
-    p.title != "" ||
-    p.description != "" ||
-    p.contact != "" ||
-    p.comment != "" ||
-    p.link != "" ||
-    p.tags.length !== 0
-  );
-};
-
-const deleteProject = (title: string) => {
-  deleteDoc(doc(useFirestore(), "competence-projects", title));
-  closeDialog();
-};
-
-const showDialog = (project?: Project) => {
+const open = (project?: Project) => {
   if (project) {
     selectedproject.value = project;
     setReadMode();
   } else {
     setNewMode();
   }
-  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
-  dialog.addEventListener("click", closeDialogIfOutside);
-  dialog.addEventListener("cancel", closeDialogIfOutside);
-  dialog.showModal();
+  openDialog("projectDialog");
 };
 
-function closeDialogIfOutside(ev: any) {
-  if (ev.target.id === "projectDialog") closeDialog();
-}
-
-function closeDialog() {
-  const dialog = <HTMLDialogElement>document.getElementById("projectDialog");
-  dialog.removeEventListener("click", closeDialogIfOutside);
-  dialog.removeEventListener("cancel", closeDialogIfOutside);
-  dialog.close();
+function close() {
+  closeDialog("projectDialog");
   selectedproject.value = undefined;
   setOverviewMode();
 }
@@ -92,12 +66,22 @@ function closeDialog() {
 
 <template>
   <div>
+    <Dialog id="projectDialog">
+      <div v-if="mode != Mode.Overview" id="wrapper">
+        <Form
+          :selected-project="selectedproject"
+          @onProjectChanged="onProjectChanged"
+          @closeDialog="close"
+        />
+      </div>
+    </Dialog>
+
     <div class="flex justify-center items-center mb-8">
       <button
         class="btn mr-4"
         :onClick="
           () => {
-            showDialog();
+            open();
           }
         "
       >
@@ -106,24 +90,12 @@ function closeDialog() {
       <button class="btn" :onClick="setOverviewMode">Go to overview</button>
     </div>
 
-    <Dialog id="projectDialog">
-      <div v-if="mode != Mode.Overview" id="wrapper">
-        <Form
-          :selectedproject="selectedproject"
-          @addToProject="addToProject"
-          @deleteProject="deleteProject"
-          @setEditMode="setEditMode"
-          @closeDialog="closeDialog"
-        />
-      </div>
-    </Dialog>
-
     <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
       <ProjectCard
         v-for="project in projects"
         :key="project.id"
         :project="project"
-        @setSelectedProject="showDialog"
+        @setSelectedProject="open"
       />
     </div>
   </div>

@@ -59,9 +59,9 @@ const updateTagsList = () => {
   }, 1000);
 };
 
-const setSelectedTag = (tag: TechTag) => {
-  console.log("set selectedTag", tag);
+const showConfirmDialog = (tag: TechTag) => {
   selectedTag.value = tag;
+  openDialog();
 };
 </script>
 
@@ -176,7 +176,10 @@ const setSelectedTag = (tag: TechTag) => {
         </div>
       </div>
     </form>
-    <ConfirmDialog :tag="selectedTag" @updateTagsList="updateTagsList" />
+    <ConfirmDialog
+      :title="`Are you sure you want to delete the tag ${selectedTag.value}`"
+      @callbackFn="removeSelectedTag(selectedTag)"
+    />
 
     <div class="col-span-1 flex justify-center items-center mt-4 max-w-xs">
       <button
