@@ -2,7 +2,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-vuefire"],
-  plugins: ["@/plugins/firebase.js"],
   css: ["@/assets/css/global.css"],
   alias: {
     assets: "/<rootDir>/assets/",
@@ -13,6 +12,7 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
+  ssr: true,
   vuefire: {
     auth: true,
     config: {
