@@ -48,6 +48,6 @@ button[disabled] {
     @apply bg-[#000735] text-white px-4 py-2 rounded-lg text-sm tracking-wider font-bold shadow transition;
   }
   .card {
-    @apply p-4 rounded-lg bg-white text-gray-700 shadow-md h-full;
+    @apply p-4 rounded-lg bg-white text-copy-black shadow-md h-full;
   }
 }
