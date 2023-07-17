@@ -51,8 +51,7 @@ const open = () => {
           "
         >
           <img
-            :onclick="createNewProject"
-            src="assets/images/add.svg"
+            src="../assets/images/add.svg"
             alt="create new project button"
             class="cursor-pointer transition hover:stroke-[#eab8b2]"
             width="35"
