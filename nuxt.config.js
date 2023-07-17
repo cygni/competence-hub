@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: "page", mode: "out-in" },
   },
-  ssr: false,
+  ssr: false, // vuefire SSR support is still in experimental. 2023-07-17
   vuefire: {
     auth: true,
     config: {
