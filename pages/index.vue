@@ -53,7 +53,7 @@ function close() {
       </div>
     </Dialog>
 
-    <div class="flex justify-center items-center mb-8">
+    <!-- <div class="flex justify-center items-center mb-8">
       <button
         class="btn mr-4"
         :onClick="
@@ -65,7 +65,7 @@ function close() {
         Create new project
       </button>
       <button class="btn" :onClick="setOverviewMode">Go to overview</button>
-    </div>
+    </div> -->
 
     <div class="flex flex-row">
       <ProjectCard

@@ -1,8 +1,21 @@
-<script setup>
+<script setup lang="ts">
+import { Project } from "../types/index";
+import { openDialog } from "~/helper/dialog";
+import { useModeStore } from "../store/index";
+
 const links = [
   { title: "Projects", link: "/", order: "order-first" },
   { title: "Tags", link: "/tags", order: "order-2" },
 ];
+
+const modeStore = useModeStore();
+const { setNewMode } = modeStore;
+
+const open = () => {
+  console.log("lala");
+  setNewMode();
+  openDialog("projectDialog");
+};
 </script>
 
 <template>
@@ -29,7 +42,14 @@ const links = [
     </div>
     <nav class="flex justify-center py-2">
       <ul class="flex gap-10 text-2xl tracking-wider">
-        <li class="order-1 -ml-8">
+        <li
+          class="order-1 -ml-8"
+          :onClick="
+            () => {
+              open();
+            }
+          "
+        >
           <img
             :onclick="createNewProject"
             src="assets/images/add.svg"
