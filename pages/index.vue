@@ -67,7 +67,7 @@ function close() {
       <button class="btn" :onClick="setOverviewMode">Go to overview</button>
     </div>
 
-    <div class="grid md:grid-cols-4 sm:grid-cols-2 gap-4">
+    <div class="flex flex-row">
       <ProjectCard
         v-for="project in projects"
         :key="project.id"
