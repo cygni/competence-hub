@@ -13,7 +13,7 @@ if (!projects) {
   throw createError({ statusCode: 404, statusMessage: "No projects" });
 }
 
-const selectedproject = ref<Project>();
+const selectedproject = ref<Project | undefined>();
 const modeStore = useModeStore();
 const { getMode } = storeToRefs(modeStore);
 const mode = getMode.value;
@@ -52,21 +52,7 @@ function close() {
         />
       </div>
     </Dialog>
-
-    <!-- <div class="flex justify-center items-center mb-8">
-      <button
-        class="btn mr-4"
-        :onClick="
-          () => {
-            open();
-          }
-        "
-      >
-        Create new project
-      </button>
-      <button class="btn" :onClick="setOverviewMode">Go to overview</button>
-    </div> -->
-
+    <h2 class="text-3xl mb-6">All projects</h2>
     <div class="flex flex-row">
       <ProjectCard
         v-for="project in projects"

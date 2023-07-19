@@ -10,7 +10,9 @@ import { storeToRefs } from "pinia";
 import { useModeStore } from "../store/index";
 import { Mode, Project, TechTag } from "../types/index";
 
-const { selectedProject } = defineProps<{ selectedProject: Project }>();
+const { selectedProject } = defineProps<{
+  selectedProject: Project | undefined;
+}>();
 const emit = defineEmits(["onProjectChanged", "closeDialog"]);
 
 const modeStore = useModeStore();
@@ -124,8 +126,10 @@ const tagAlreadyChosen = (tag: string) => {
 </script>
 
 <template>
-  <div class="bg-white rounded-lg shadow-lg p-6 overflow-hidden">
-    <div class="text-gray-700 mb-4 flex justify-between">
+  <div
+    class="bg-rose-quartz bg-opacity-50 rounded-lg shadow-lg p-6 overflow-hidden"
+  >
+    <div class="text-galaxy-blue mb-4 flex justify-between">
       <h1 class="tracking-wider text-2xl font-bold">{{ heading }}</h1>
       <div class="flex gap-2">
         <button
@@ -171,13 +175,13 @@ const tagAlreadyChosen = (tag: string) => {
     <form class="grid grid-cols-2 gap-4" :onSubmit="addToProject">
       <div class="col-span-2">
         <label
-          class="uppercase tracking-wider text-xs font-bold text-gray-700"
+          class="uppercase tracking-wider text-xs font-bold text-galaxy-blue"
           for="project-title"
         >
           Title
         </label>
         <input
-          class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
+          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-title"
           type="text"
           required
@@ -188,13 +192,13 @@ const tagAlreadyChosen = (tag: string) => {
       </div>
       <div class="col-span-2">
         <label
-          class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
+          class="uppercase tracking-wider text-xs font-bold mb-2 text-galaxy-blue"
           for="project-description"
         >
           Description
         </label>
         <input
-          class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
+          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-description"
           placeholder="Enter a description for the project"
           type="text"
@@ -206,13 +210,13 @@ const tagAlreadyChosen = (tag: string) => {
 
       <div class="col-span-2">
         <label
-          class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
+          class="uppercase tracking-wider text-xs font-bold mb-2 text-galaxy-blue"
           for="project-purpose"
         >
           Purpose
         </label>
         <textarea
-          class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
+          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-purpose"
           placeholder="Enter the purpose of the project"
           type="text"
@@ -223,13 +227,13 @@ const tagAlreadyChosen = (tag: string) => {
       </div>
       <div class="col-span-2">
         <label
-          class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
+          class="uppercase tracking-wider text-xs font-bold mb-2 text-galaxy-blue"
           for="project-link"
         >
           Github
         </label>
         <input
-          class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
+          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-link"
           type="link"
           required
@@ -240,13 +244,13 @@ const tagAlreadyChosen = (tag: string) => {
       </div>
       <div class="col-span-1">
         <label
-          class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
+          class="uppercase tracking-wider text-xs font-bold mb-2 text-galaxy-blue"
           for="project-contact"
         >
           Contact (Email)
         </label>
         <input
-          class="appearance-none w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
+          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-contact"
           type="email"
           required
@@ -257,14 +261,14 @@ const tagAlreadyChosen = (tag: string) => {
       </div>
       <div class="col-span-1">
         <label
-          class="uppercase tracking-wider text-xs font-bold mb-2 text-gray-700"
+          class="uppercase tracking-wider text-xs font-bold mb-2 text-galaxy-blue"
           for="project-tags"
         >
           Tags
         </label>
         <div class="relative">
           <select
-            class="appearance-none cursor-pointer w-full border border-gray-200 text-gray-700 py-3 px-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+            class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
             id="project-tags"
             name="tags"
             :onchange="addTags"
@@ -281,7 +285,7 @@ const tagAlreadyChosen = (tag: string) => {
             </option>
           </select>
           <div
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-galaxy-blue"
           >
             <img
               :onClick="() => $emit('closeDialog')"
@@ -302,8 +306,12 @@ const tagAlreadyChosen = (tag: string) => {
         />
       </div>
 
-      <div class="col-span-2 flex justify-center items-center mt-4">
-        <button class="w-full btn" type="submit" :disabled="mode === Mode.Read">
+      <div class="col-span-2 flex justify-end items-center mt-4">
+        <button
+          class="flex-shrink-0 bg-purple-rain text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-rain focus:outline-none focus:ring-2 focus:ring-purple-rain focus:ring-offset-2 focus:ring-offset-purple-rain"
+          type="submit"
+          :disabled="mode === Mode.Read"
+        >
           Submit
         </button>
       </div>

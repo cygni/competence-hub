@@ -1,5 +1,8 @@
 <template>
-  <dialog :id="id" class="min-w-[33%] p-0 shadow rounded-lg">
+  <dialog
+    :id="id"
+    class="min-w-[33%] p-0 shadow-md rounded-lg focus:outline-none focus:border-transparent active:border-transparent"
+  >
     <slot></slot>
   </dialog>
 </template>
