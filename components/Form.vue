@@ -136,7 +136,7 @@ const tagAlreadyChosen = (tag: string) => {
           v-if="mode === Mode.Read"
           :onClick="() => setEditMode()"
           type="button"
-          class="btn bg-blue-500 hover:bg-blue-700 inline-flex"
+          class="btn bg-classic-blue bg-opacity-90 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md enabled:hover:bg-classic-blue focus:outline-none focus:ring-2 focus:ring-classic-blue focus:ring-offset-2 focus:ring-offset-classic-blue inline-flex"
         >
           <img
             src="../assets/images/edit.svg"
@@ -150,7 +150,7 @@ const tagAlreadyChosen = (tag: string) => {
         <button
           v-if="mode !== Mode.New"
           type="button"
-          class="btn bg-red-500 hover:bg-red-700 inline-flex"
+          class="btn bg-orange-red enabled:hover:bg-orange-red py-2 px-4 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-classic-blue focus:ring-offset-2 focus:ring-offset-classic-blue inline-flex"
           :onClick="() => deleteProject()"
         >
           <img
@@ -181,7 +181,7 @@ const tagAlreadyChosen = (tag: string) => {
           Title
         </label>
         <input
-          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
+          class="appearance-none w-full text-purple-rain border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-title"
           type="text"
           required
@@ -198,7 +198,7 @@ const tagAlreadyChosen = (tag: string) => {
           Description
         </label>
         <input
-          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
+          class="appearance-none w-full text-purple-rain border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-description"
           placeholder="Enter a description for the project"
           type="text"
@@ -216,7 +216,7 @@ const tagAlreadyChosen = (tag: string) => {
           Purpose
         </label>
         <textarea
-          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
+          class="appearance-none w-full text-purple-rain border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-purpose"
           placeholder="Enter the purpose of the project"
           type="text"
@@ -233,7 +233,7 @@ const tagAlreadyChosen = (tag: string) => {
           Github
         </label>
         <input
-          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
+          class="appearance-none w-full text-purple-rain border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-link"
           type="link"
           required
@@ -250,7 +250,7 @@ const tagAlreadyChosen = (tag: string) => {
           Contact (Email)
         </label>
         <input
-          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
+          class="appearance-none w-full text-purple-rain border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           id="project-contact"
           type="email"
           required
@@ -268,7 +268,7 @@ const tagAlreadyChosen = (tag: string) => {
         </label>
         <div class="relative">
           <select
-            class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
+            class="appearance-none w-full text-purple-rain border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
             id="project-tags"
             name="tags"
             :onchange="addTags"
@@ -308,7 +308,7 @@ const tagAlreadyChosen = (tag: string) => {
 
       <div class="col-span-2 flex justify-end items-center mt-4">
         <button
-          class="flex-shrink-0 bg-purple-rain text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-rain focus:outline-none focus:ring-2 focus:ring-purple-rain focus:ring-offset-2 focus:ring-offset-purple-rain"
+          class="flex-shrink-0 bg-classic-blue bg-opacity-90 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md enabled:hover:bg-classic-blue focus:outline-none focus:ring-2 focus:ring-classic-blue focus:ring-offset-2 focus:ring-offset-classic-blue"
           type="submit"
           :disabled="mode === Mode.Read"
         >

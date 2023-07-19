@@ -145,7 +145,7 @@ const showConfirmDialog = (tag: TechTag) => {
         <input
           v-model="newTag.value"
           id="techtag-value"
-          class="appearance-none w-full text-galaxy-blue border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain-500 focus:border-transparent appearance-none border border-transparent bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
+          class="appearance-none w-full text-purple-rain border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
           placeholder="New tech tag..."
         />
       </div>
@@ -153,45 +153,180 @@ const showConfirmDialog = (tag: TechTag) => {
         <label class="uppercase tracking-wider text-xs font-bold text-gray-700"
           >Aspect</label
         >
-        <div
-          class="flex w-full text-gray-700 rounded py-3 px-2 leading-tight transition focus:outline-none focus:bg-white focus:border-gray-500"
-        >
-          <div class="flex items-center h-5">
-            <input
-              class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              type="radio"
-              id="backend"
-              :value="Aspect.Backend"
-              v-model="newTag.aspect"
-            />
-          </div>
-          <div class="ml-2 text-sm">
-            <label class="mr-8" for="backend">Backend</label>
-          </div>
-          <input
-            class="mr-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            type="radio"
-            id="frontend"
-            :value="Aspect.Frontend"
-            v-model="newTag.aspect"
-          />
-          <label class="mr-8" for="frontend">Frontend</label>
-          <input
-            class="mr-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            type="radio"
-            id="fullstack"
-            :value="Aspect.Fullstack"
-            v-model="newTag.aspect"
-          />
-          <label class="mr-8" for="fullstack">Fullstack</label>
-          <input
-            class="mr-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            type="radio"
-            id="embedded"
-            :value="Aspect.Embedded"
-            v-model="newTag.aspect"
-          />
-          <label class="mr-8" for="embedded">Embedded</label>
+        <div class="pb-5 flex">
+          <fieldset>
+            <legend class="sr-only">Privacy setting</legend>
+
+            <div class="rounded-md -space-y-px">
+              <div
+                class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
+                :class="{
+                  'bg-purple-rain bg-opacity-50 border-purple-rain':
+                    newTag.aspect == Aspect.Backend,
+                  'border-purple-rain border-opacity-50 bg-white bg-opacity-80':
+                    newTag.aspect != Aspect.Backend,
+                }"
+              >
+                <div class="flex items-center h-5">
+                  <input
+                    :value="Aspect.Backend"
+                    v-model="newTag.aspect"
+                    type="radio"
+                    class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
+                  />
+                </div>
+                <label
+                  for="settings-option-0"
+                  class="ml-3 flex flex-col cursor-pointer"
+                >
+                  <span
+                    class="block text-sm font-medium"
+                    :class="{
+                      'text-white': newTag.aspect == Aspect.Backend,
+                      'text-copy-black': newTag.aspect != Aspect.Backend,
+                    }"
+                  >
+                    Backend
+                  </span>
+                  <span
+                    class="block text-sm"
+                    :class="{
+                      'text-white': newTag.aspect == Aspect.Backend,
+                      'text-copy-black': newTag.aspect != Aspect.Backend,
+                    }"
+                  >
+                    The tech tag you are adding is used in backend development
+                  </span>
+                </label>
+              </div>
+
+              <div
+                class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
+                :class="{
+                  'bg-purple-rain bg-opacity-50 border-purple-rain':
+                    newTag.aspect == Aspect.Frontend,
+                  'border-purple-rain border-opacity-50 bg-white bg-opacity-80':
+                    newTag.aspect != Aspect.Frontend,
+                }"
+              >
+                <div class="flex items-center h-5">
+                  <input
+                    :value="Aspect.Frontend"
+                    v-model="newTag.aspect"
+                    type="radio"
+                    class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
+                  />
+                </div>
+                <label
+                  for="settings-option-0"
+                  class="ml-3 flex flex-col cursor-pointer"
+                >
+                  <span
+                    class="block text-sm font-medium"
+                    :class="{
+                      'text-white': newTag.aspect == Aspect.Frontend,
+                      'text-copy-black': newTag.aspect != Aspect.Frontend,
+                    }"
+                  >
+                    Frontend
+                  </span>
+                  <span
+                    class="block text-sm"
+                    :class="{
+                      'text-white': newTag.aspect == Aspect.Frontend,
+                      'text-galaxy-blue': newTag.aspect != Aspect.Frontend,
+                    }"
+                  >
+                    The tech tag you are adding is used in frontend development
+                  </span>
+                </label>
+              </div>
+
+              <div
+                class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
+                :class="{
+                  'bg-purple-rain bg-opacity-50 border-purple-rain':
+                    newTag.aspect == Aspect.Fullstack,
+                  'border-purple-rain border-opacity-50 bg-white bg-opacity-80':
+                    newTag.aspect != Aspect.Fullstack,
+                }"
+              >
+                <div class="flex items-center h-5">
+                  <input
+                    :value="Aspect.Fullstack"
+                    v-model="newTag.aspect"
+                    type="radio"
+                    class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
+                  />
+                </div>
+                <label
+                  for="settings-option-0"
+                  class="ml-3 flex flex-col cursor-pointer"
+                >
+                  <span
+                    class="block text-sm font-medium"
+                    :class="{
+                      'text-white': newTag.aspect == Aspect.Fullstack,
+                      'text-copy-black': newTag.aspect != Aspect.Fullstack,
+                    }"
+                  >
+                    Fullstack
+                  </span>
+                  <span
+                    class="block text-sm"
+                    :class="{
+                      'text-white': newTag.aspect == Aspect.Fullstack,
+                      'text-galaxy-blue': newTag.aspect != Aspect.Fullstack,
+                    }"
+                  >
+                    The tech tag you are adding is used in fullstack development
+                  </span>
+                </label>
+              </div>
+
+              <div
+                class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
+                :class="{
+                  'bg-purple-rain bg-opacity-50 border-purple-rain':
+                    newTag.aspect == Aspect.Embedded,
+                  'border-purple-rain border-opacity-50 bg-white bg-opacity-80':
+                    newTag.aspect != Aspect.Embedded,
+                }"
+              >
+                <div class="flex items-center h-5">
+                  <input
+                    :value="Aspect.Embedded"
+                    v-model="newTag.aspect"
+                    type="radio"
+                    class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
+                  />
+                </div>
+                <label
+                  for="settings-option-0"
+                  class="ml-3 flex flex-col cursor-pointer"
+                >
+                  <span
+                    class="block text-sm font-medium"
+                    :class="{
+                      'text-white': newTag.aspect == Aspect.Embedded,
+                      'text-copy-black': newTag.aspect != Aspect.Embedded,
+                    }"
+                  >
+                    Embedded
+                  </span>
+                  <span
+                    class="block text-sm"
+                    :class="{
+                      'text-white': newTag.aspect == Aspect.Embedded,
+                      'text-galaxy-blue': newTag.aspect != Aspect.Embedded,
+                    }"
+                  >
+                    The tech tag you are adding is used in embedded development
+                  </span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
         </div>
       </div>
     </form>
@@ -200,185 +335,9 @@ const showConfirmDialog = (tag: TechTag) => {
       @callbackFn="removeSelectedTag(selectedTag)"
     />
 
-    <div class="pt-10 pb-5 flex">
-      <fieldset>
-        <legend class="sr-only">Privacy setting</legend>
-
-        <div class="rounded-md -space-y-px">
-          <div
-            class="relative border rounded-tl-md rounded-tr-md p-4 flex"
-            :class="{
-              'bg-purple-rain bg-opacity-50 border-purple-rain':
-                newTag.aspect == Aspect.Backend,
-              'border-purple-rain border-opacity-50 bg-purbeck-stone bg-opacity-40':
-                newTag.aspect != Aspect.Backend,
-            }"
-          >
-            <div class="flex items-center h-5">
-              <input
-                :value="Aspect.Backend"
-                v-model="newTag.aspect"
-                type="radio"
-                class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
-              />
-            </div>
-            <label
-              for="settings-option-0"
-              class="ml-3 flex flex-col cursor-pointer"
-            >
-              <span
-                class="block text-sm font-medium"
-                :class="{
-                  'text-white': newTag.aspect == Aspect.Backend,
-                  'text-copy-black': newTag.aspect != Aspect.Backend,
-                }"
-              >
-                Backend
-              </span>
-              <span
-                class="block text-sm"
-                :class="{
-                  'text-white': newTag.aspect == Aspect.Backend,
-                  'text-copy-black': newTag.aspect != Aspect.Backend,
-                }"
-              >
-                The tech tag you are adding is used in backend development
-              </span>
-            </label>
-          </div>
-
-          <div
-            class="relative border rounded-tl-md rounded-tr-md p-4 flex"
-            :class="{
-              'bg-purple-rain bg-opacity-50 border-purple-rain':
-                newTag.aspect == Aspect.Frontend,
-              'border-purple-rain border-opacity-50 bg-purbeck-stone bg-opacity-40':
-                newTag.aspect != Aspect.Frontend,
-            }"
-          >
-            <div class="flex items-center h-5">
-              <input
-                :value="Aspect.Frontend"
-                v-model="newTag.aspect"
-                type="radio"
-                class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
-              />
-            </div>
-            <label
-              for="settings-option-0"
-              class="ml-3 flex flex-col cursor-pointer"
-            >
-              <span
-                class="block text-sm font-medium"
-                :class="{
-                  'text-white': newTag.aspect == Aspect.Frontend,
-                  'text-copy-black': newTag.aspect != Aspect.Frontend,
-                }"
-              >
-                Frontend
-              </span>
-              <span
-                class="block text-sm"
-                :class="{
-                  'text-white': newTag.aspect == Aspect.Frontend,
-                  'text-galaxy-blue': newTag.aspect != Aspect.Frontend,
-                }"
-              >
-                The tech tag you are adding is used in frontend development
-              </span>
-            </label>
-          </div>
-
-          <div
-            class="relative border rounded-tl-md rounded-tr-md p-4 flex"
-            :class="{
-              'bg-purple-rain bg-opacity-50 border-purple-rain':
-                newTag.aspect == Aspect.Fullstack,
-              'border-purple-rain border-opacity-50 bg-purbeck-stone bg-opacity-40':
-                newTag.aspect != Aspect.Fullstack,
-            }"
-          >
-            <div class="flex items-center h-5">
-              <input
-                :value="Aspect.Fullstack"
-                v-model="newTag.aspect"
-                type="radio"
-                class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
-              />
-            </div>
-            <label
-              for="settings-option-0"
-              class="ml-3 flex flex-col cursor-pointer"
-            >
-              <span
-                class="block text-sm font-medium"
-                :class="{
-                  'text-white': newTag.aspect == Aspect.Fullstack,
-                  'text-copy-black': newTag.aspect != Aspect.Fullstack,
-                }"
-              >
-                Fullstack
-              </span>
-              <span
-                class="block text-sm"
-                :class="{
-                  'text-white': newTag.aspect == Aspect.Fullstack,
-                  'text-galaxy-blue': newTag.aspect != Aspect.Fullstack,
-                }"
-              >
-                The tech tag you are adding is used in fullstack development
-              </span>
-            </label>
-          </div>
-
-          <div
-            class="relative border rounded-tl-md rounded-tr-md p-4 flex"
-            :class="{
-              'bg-purple-rain bg-opacity-50 border-purple-rain':
-                newTag.aspect == Aspect.Embedded,
-              'border-purple-rain border-opacity-50 bg-purbeck-stone bg-opacity-40':
-                newTag.aspect != Aspect.Embedded,
-            }"
-          >
-            <div class="flex items-center h-5">
-              <input
-                :value="Aspect.Embedded"
-                v-model="newTag.aspect"
-                type="radio"
-                class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
-              />
-            </div>
-            <label
-              for="settings-option-0"
-              class="ml-3 flex flex-col cursor-pointer"
-            >
-              <span
-                class="block text-sm font-medium"
-                :class="{
-                  'text-white': newTag.aspect == Aspect.Embedded,
-                  'text-copy-black': newTag.aspect != Aspect.Embedded,
-                }"
-              >
-                Embedded
-              </span>
-              <span
-                class="block text-sm"
-                :class="{
-                  'text-white': newTag.aspect == Aspect.Embedded,
-                  'text-galaxy-blue': newTag.aspect != Aspect.Embedded,
-                }"
-              >
-                The tech tag you are adding is used in embedded development
-              </span>
-            </label>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-
     <div class="col-span-1 flex justify-start items-center mt-4 max-w-xs">
       <button
-        class="flex-shrink-0 bg-purple-rain text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-rain focus:outline-none focus:ring-2 focus:ring-purple-rain focus:ring-offset-2 focus:ring-offset-purple-rain"
+        class="flex-shrink-0 bg-classic-blue bg-opacity-90 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md enabled:hover:bg-classic-blue focus:outline-none focus:ring-2 focus:ring-classic-blue focus:ring-offset-2 focus:ring-offset-classic-blue"
         @click="addTag"
         :disabled="!newTag.value || !newTag.aspect"
       >
