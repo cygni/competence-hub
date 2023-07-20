@@ -1,28 +1,35 @@
 <script setup lang="ts">
-import { doc, setDoc } from "firebase/firestore";
-import { useFirestore } from "vuefire";
-import { deleteTag, getAllTags, getFilteredTags } from "~/api/tags";
+import { doc, setDoc, deleteDoc } from "firebase/firestore";
 import { openDialog } from "../helper/dialog";
-import { Aspect, FilteredTags, TechTag } from "../types/index";
+import { Aspect, TechTag } from "../types/index";
+import { collection, query, where } from "firebase/firestore";
+import { useCollection, useFirestore } from "vuefire";
 
-let tags = ref<FilteredTags>(getFilteredTags());
+const collection_name = "competence-tags";
+
+let tagsRef = collection(useFirestore(), collection_name);
+
+let frontendTags = ref(
+  useCollection(query(tagsRef, where("aspect", "==", "frontend")))
+);
+let backendTags = ref(
+  useCollection(query(tagsRef, where("aspect", "==", "backend")))
+);
+let fullstackTags = ref(
+  useCollection(query(tagsRef, where("aspect", "==", "fullstack")))
+);
+let embeddedTags = ref(
+  useCollection(query(tagsRef, where("aspect", "==", "embedded")))
+);
+
 let newTag = ref({ value: "", aspect: "" });
 let selectedTag = ref(<TechTag>{ value: "", aspect: "" });
 
 const isDuplicate = (newTagValue: string) => {
-  const tagValues = getAllTags().map((tag) => tag.value);
+  console.log("inside is duplicate", useCollection(tagsRef));
+  const tagValues = useCollection(tagsRef).value.map((tag) => tag.value);
   return tagValues.includes(newTagValue);
 };
-
-// function RadioFields() {
-//   return {
-//     value: false,
-//     init() {
-//       this.value = this.$el.querySelector("input[type=radio]:checked").value;
-//     },
-//   };
-// }
-// window.RadioFields = RadioFields;
 
 const addTag = () => {
   if (!isDuplicate(newTag.value.value)) {
@@ -51,7 +58,7 @@ const addTag = () => {
         aspect: aspect,
         value: newTag.value.value,
       }).then(() => {
-        tags.value = getFilteredTags();
+        getTags();
       });
     }
   } else {
@@ -69,9 +76,26 @@ const removeSelectedTag = (selectedTag: TechTag) => {
     resolve(null);
   }).then(() => {
     setTimeout(() => {
-      tags.value = getFilteredTags();
+      getTags();
     }, 1000);
   });
+};
+
+const getTags = () => {
+  frontendTags = useCollection(
+    query(tagsRef, where("aspect", "==", "frontend"))
+  );
+  backendTags = useCollection(query(tagsRef, where("aspect", "==", "backend")));
+  fullstackTags = useCollection(
+    query(tagsRef, where("aspect", "==", "fullstack"))
+  );
+  embeddedTags = useCollection(
+    query(tagsRef, where("aspect", "==", "embedded"))
+  );
+};
+
+const deleteTag = (tag: TechTag) => {
+  deleteDoc(doc(useFirestore(), collection_name, tag.value));
 };
 
 const showConfirmDialog = (tag: TechTag) => {
@@ -89,8 +113,8 @@ const showConfirmDialog = (tag: TechTag) => {
         <div class="flex flex-wrap max-w-[80%]">
           <Tag
             :edit="true"
-            v-if="tags.frontend?.length > 0"
-            v-for="tag in tags.frontend"
+            v-if="frontendTags?.length > 0"
+            v-for="tag in frontendTags"
             :tag="tag"
             @deleteTag="showConfirmDialog"
           />
@@ -101,8 +125,8 @@ const showConfirmDialog = (tag: TechTag) => {
         <div class="flex flex-wrap max-w-[80%]">
           <Tag
             :edit="true"
-            v-if="tags.backend?.length > 0"
-            v-for="tag in tags.backend"
+            v-if="backendTags?.length > 0"
+            v-for="tag in backendTags"
             :tag="tag"
             @deleteTag="showConfirmDialog"
           />
@@ -113,8 +137,8 @@ const showConfirmDialog = (tag: TechTag) => {
         <div class="flex flex-wrap max-w-[80%]">
           <Tag
             :edit="true"
-            v-if="tags.fullstack?.length > 0"
-            v-for="tag in tags.fullstack"
+            v-if="fullstackTags?.length > 0"
+            v-for="tag in fullstackTags"
             :tag="tag"
             @deleteTag="showConfirmDialog"
           />
@@ -125,8 +149,8 @@ const showConfirmDialog = (tag: TechTag) => {
         <div class="flex flex-wrap max-w-[80%]">
           <Tag
             :edit="true"
-            v-if="tags.embedded?.length > 0"
-            v-for="tag in tags.embedded"
+            v-if="embeddedTags?.length > 0"
+            v-for="tag in embeddedTags"
             :tag="tag"
             @deleteTag="showConfirmDialog"
           />
