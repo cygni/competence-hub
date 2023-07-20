@@ -11,6 +11,7 @@ Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introdu
 - [TailwindCSS](https://tailwindcss.com/)
 - [Firestore](https://firebase.google.com/docs/firestore)
 - [VueFire](https://vuefire.vuejs.org/)
+- [Pinia](https://pinia.vuejs.org/)
 
 ## Firestore
 
