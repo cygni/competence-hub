@@ -15,9 +15,14 @@ This Nuxt.js app is created in order to be able to show all in-house competence 
 
 In order to fetch required data there are an .env file that is required locally to run it locally, those are added into vercel where the application is hosted.
 
+User used to create firestore in firebase:
+cygnivasttech@gmail.com
+
 ## Vercel
 
 The app is hosted via Vercel. You can access the app via https://competence-hub.vercel.app/
+
+The repo that is hosted is used using the username "cygnivasttech" in github, that user have forked the competence-hub repo from the original repo. The fork needs to be updated in order to get vercel up to speed. All the code changes is done against the original repo.
 
 ## Setup
 
