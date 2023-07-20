@@ -33,9 +33,7 @@ h5 {
 }
 
 button[disabled] {
-  border: 1px solid #999999;
-  background-color: #cccccc;
-  color: #666666;
+  @apply cursor-not-allowed bg-copy-black bg-opacity-50 text-purbeck-stone text-opacity-50 border border-copy-black border-opacity-20;
 }
 
 @layer components {
@@ -45,4 +43,8 @@ button[disabled] {
   .card {
     @apply p-4 rounded-lg bg-white text-copy-black shadow-md h-full;
   }
+}
+
+input[type="radio"] {
+  @apply focus:ring-0 h-4 w-4 cursor-pointer text-orange-red;
 }

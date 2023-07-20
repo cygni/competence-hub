@@ -189,7 +189,7 @@ const showConfirmDialog = (tag: TechTag) => {
               <div
                 class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
-                  'bg-purple-rain bg-opacity-50 border-purple-rain':
+                  'bg-purple-rain border-galaxy-blue':
                     newTag.aspect == Aspect.Backend,
                   'border-purple-rain border-opacity-50 bg-white bg-opacity-80':
                     newTag.aspect != Aspect.Backend,
@@ -200,7 +200,6 @@ const showConfirmDialog = (tag: TechTag) => {
                     :value="Aspect.Backend"
                     v-model="newTag.aspect"
                     type="radio"
-                    class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
                   />
                 </div>
                 <label
@@ -231,7 +230,7 @@ const showConfirmDialog = (tag: TechTag) => {
               <div
                 class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
-                  'bg-purple-rain bg-opacity-50 border-purple-rain':
+                  'bg-purple-rain border-galaxy-blue':
                     newTag.aspect == Aspect.Frontend,
                   'border-purple-rain border-opacity-50 bg-white bg-opacity-80':
                     newTag.aspect != Aspect.Frontend,
@@ -242,7 +241,6 @@ const showConfirmDialog = (tag: TechTag) => {
                     :value="Aspect.Frontend"
                     v-model="newTag.aspect"
                     type="radio"
-                    class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
                   />
                 </div>
                 <label
@@ -273,7 +271,7 @@ const showConfirmDialog = (tag: TechTag) => {
               <div
                 class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
-                  'bg-purple-rain bg-opacity-50 border-purple-rain':
+                  'bg-purple-rain border-galaxy-blue':
                     newTag.aspect == Aspect.Fullstack,
                   'border-purple-rain border-opacity-50 bg-white bg-opacity-80':
                     newTag.aspect != Aspect.Fullstack,
@@ -284,7 +282,6 @@ const showConfirmDialog = (tag: TechTag) => {
                     :value="Aspect.Fullstack"
                     v-model="newTag.aspect"
                     type="radio"
-                    class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
                   />
                 </div>
                 <label
@@ -315,7 +312,7 @@ const showConfirmDialog = (tag: TechTag) => {
               <div
                 class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
-                  'bg-purple-rain bg-opacity-50 border-purple-rain':
+                  'bg-purple-rain border-galaxy-blue':
                     newTag.aspect == Aspect.Embedded,
                   'border-purple-rain border-opacity-50 bg-white bg-opacity-80':
                     newTag.aspect != Aspect.Embedded,
@@ -326,7 +323,6 @@ const showConfirmDialog = (tag: TechTag) => {
                     :value="Aspect.Embedded"
                     v-model="newTag.aspect"
                     type="radio"
-                    class="focus:ring-purple-rain h-4 w-4 text-purple-rain cursor-pointer border-purbeck-stone"
                   />
                 </div>
                 <label
