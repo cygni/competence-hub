@@ -73,5 +73,7 @@ const open = () => {
 <style>
 .router-link-exact-active {
   color: #eab8b2;
+  padding-bottom: 0.25rem;
+  border-bottom: 5px solid #eab8b2;
 }
 </style>
