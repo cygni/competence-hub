@@ -2,8 +2,6 @@
 
 This Nuxt.js app is created in order to be able to show all in-house competence projects and share knowledge and also get help in your project if you are stuck on something.
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
 ### Techstack
 
 - [Nuxt.js](https://nuxt.com/docs)
