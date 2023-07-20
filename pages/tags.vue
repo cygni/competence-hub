@@ -9,6 +9,10 @@ const collection_name = "competence-tags";
 
 let tagsRef = collection(useFirestore(), collection_name);
 
+if (!tagsRef) {
+  throw createError({ statusCode: 404, statusMessage: "No tags" });
+}
+
 let frontendTags = ref(
   useCollection(query(tagsRef, where("aspect", "==", "frontend")))
 );
@@ -108,9 +112,9 @@ const showConfirmDialog = (tag: TechTag) => {
   <div class="text-copy-black">
     <h2 class="text-3xl mb-6">Available tech-tags</h2>
     <div class="flex flex-row">
-      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mr-3">
-        <h2 class="text-xl mb-3">Frontend</h2>
-        <div class="flex flex-wrap max-w-[80%]">
+      <div class="rounded basis-1/5 shadow-lg bg-white p-4 mr-4">
+        <h2 class="text-xl mb-4">Frontend</h2>
+        <div class="flex flex-wrap max-w-[85%]">
           <Tag
             :edit="true"
             v-if="frontendTags?.length > 0"
@@ -120,9 +124,9 @@ const showConfirmDialog = (tag: TechTag) => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mx-3">
-        <h2 class="text-xl mb-3">Backend</h2>
-        <div class="flex flex-wrap max-w-[80%]">
+      <div class="rounded basis-1/5 shadow-lg bg-white p-4 mx-4">
+        <h2 class="text-xl mb-4">Backend</h2>
+        <div class="flex flex-wrap max-w-[85%]">
           <Tag
             :edit="true"
             v-if="backendTags?.length > 0"
@@ -132,9 +136,9 @@ const showConfirmDialog = (tag: TechTag) => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/4 shadow-lg bg-white p-3 mx-3">
-        <h2 class="text-xl mb-3">Fullstack</h2>
-        <div class="flex flex-wrap max-w-[80%]">
+      <div class="rounded basis-1/5 shadow-lg bg-white p-4 mx-4">
+        <h2 class="text-xl mb-4">Fullstack</h2>
+        <div class="flex flex-wrap max-w-[85%]">
           <Tag
             :edit="true"
             v-if="fullstackTags?.length > 0"
@@ -144,9 +148,9 @@ const showConfirmDialog = (tag: TechTag) => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/4 shadow-lg bg-white p-3 ml-3">
-        <h2 class="text-xl mb-3">Embedded</h2>
-        <div class="flex flex-wrap max-w-[80%]">
+      <div class="rounded basis-1/5 shadow-lg bg-white p-4 ml-4">
+        <h2 class="text-xl mb-4">Embedded</h2>
+        <div class="flex flex-wrap max-w-[85%]">
           <Tag
             :edit="true"
             v-if="embeddedTags?.length > 0"

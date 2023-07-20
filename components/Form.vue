@@ -118,6 +118,12 @@ const addTags = (e: any) => {
     value: selectedTag.value,
   };
   tags.value.push(tag);
+
+  const route = useRoute();
+  console.log("papapapapapapa", route.name);
+  if (useRoute().name != "index") {
+    navigateTo("/");
+  }
 };
 
 const tagAlreadyChosen = (tag: string) => {

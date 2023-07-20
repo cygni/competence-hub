@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rounded md:basis-1/4 sm:basis-1/2 shadow-lg bg-white p-4 mr-4 card transition hover:bg-slate-100 cursor-pointer overflow-hidden"
+    class="rounded md:basis-1/5 basis-1/2 shadow-lg bg-white p-4 mr-4 mt-4 card transition hover:bg-slate-100 cursor-pointer"
     :onClick="() => $emit('setSelectedProject', project)"
   >
     <h1 class="text-xl font-bold pb-4">{{ project.title }}</h1>
