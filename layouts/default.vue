@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="h-screen dark:bg-copy-black bg-rose-quartz dark:text-rose-quartz text-copy-black"
-  >
+  <div>
     <Header />
     <Dialog id="projectDialog">
       <div v-if="mode != Mode.Overview" id="wrapper">

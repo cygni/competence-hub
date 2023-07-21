@@ -1,7 +1,16 @@
 <script setup lang="ts">
-import { Project } from "../types/index";
 import { openDialog } from "~/helper/dialog";
 import { useModeStore } from "../store/index";
+
+import { useDark, useToggle } from "@vueuse/core";
+
+const isDark = useDark({
+  selector: "body",
+  attribute: "class",
+  valueDark: "dark",
+  valueLight: "light",
+});
+const toggleDark = useToggle(isDark);
 
 const links = [
   { title: "Projects", link: "/", order: "order-first" },
@@ -20,7 +29,7 @@ const open = () => {
 
 <template>
   <header
-    class="md:flex justify-center justify-between items-center px-8 py-2 bg-[#000735] shadow text-white"
+    class="md:flex justify-center justify-between items-center px-8 py-2 bg-galaxy-blue shadow text-white"
   >
     <div class="flex justify-center items-center">
       <img
@@ -53,7 +62,7 @@ const open = () => {
           <img
             src="../assets/images/add.svg"
             alt="create new project button"
-            class="cursor-pointer transition hover:stroke-[#eab8b2]"
+            class="cursor-pointer transition hover:stroke-rose-quartz"
             width="35"
             height="35"
           />
@@ -61,19 +70,18 @@ const open = () => {
         <li
           v-for="l in links"
           :class="l.order"
-          class="transition hover:text-[#eab8b2]"
+          class="transition hover:text-rose-quartz"
         >
           <NuxtLink :to="l.link">{{ l.title }}</NuxtLink>
+        </li>
+        <li class="order-last">
+          <button @click="toggleDark()" class="btn px-4 py-2">
+            Dark Toggle
+          </button>
         </li>
       </ul>
     </nav>
   </header>
 </template>
 
-<style>
-.router-link-exact-active {
-  color: #eab8b2;
-  padding-bottom: 0.25rem;
-  border-bottom: 5px solid #eab8b2;
-}
-</style>
+<style></style>

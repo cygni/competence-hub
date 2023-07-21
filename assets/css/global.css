@@ -14,8 +14,47 @@
 }
 
 /* body {
-  @apply h-full dark:bg-copy-black bg-rose-quartz dark:text-rose-quartz text-copy-black;
+  @apply h-full dark:bg-copy-black bg-rose-quartz dark:text-rose-quartz ;
 } */
+
+@layer base {
+  body {
+    @apply h-screen bg-rose-quartz text-copy-black;
+
+    header {
+      img {
+        filter: invert(88%) sepia(1%) saturate(4899%) hue-rotate(317deg)
+          brightness(88%) contrast(90%);
+      }
+      .btn {
+        @apply text-copy-black bg-white;
+      }
+      .router-link-exact-active {
+        @apply text-rose-quartz pb-1 border-b-4 border-rose-quartz;
+      }
+    }
+
+    &.dark {
+      @apply bg-galaxy-blue text-rose-quartz;
+
+      header {
+        @apply bg-white text-galaxy-blue;
+
+        img {
+          filter: invert(7%) sepia(29%) saturate(7220%) hue-rotate(224deg)
+            brightness(87%) contrast(112%);
+        }
+
+        .btn {
+          @apply bg-purple-rain text-white;
+        }
+        .router-link-exact-active {
+          @apply text-classic-blue pb-1 border-b-4 border-classic-blue;
+        }
+      }
+    }
+  }
+}
 
 html,
 body,
