@@ -3,6 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
   --font-fallback: "Barlow";
   --font-barlow-condensed: "Barlow condensed";
@@ -11,11 +12,10 @@
 #Main {
   @apply p-10;
 }
-html {
-  @apply h-full;
-  color: #000735;
-  background-color: #eab8b2;
-}
+
+/* body {
+  @apply h-full dark:bg-copy-black bg-rose-quartz dark:text-rose-quartz text-copy-black;
+} */
 
 html,
 body,
@@ -38,7 +38,7 @@ button[disabled] {
 
 @layer components {
   .btn {
-    @apply bg-[#000735] text-white px-4 py-2 rounded-lg text-sm tracking-wider font-bold shadow transition;
+    @apply bg-galaxy-blue text-white px-4 py-2 rounded-lg text-sm tracking-wider font-bold shadow transition;
   }
   .card {
     @apply p-4 rounded-lg bg-white text-copy-black shadow-md h-full;

@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@firebase/app-types": "^0.9.0",
+    "@nuxtjs/color-mode": "^3.3.0",
     "@pinia/nuxt": "^0.4.11",
     "@vueuse/core": "^9.10.0",
     "firebase": "^9.22.2",

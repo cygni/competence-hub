@@ -4,6 +4,8 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt", "nuxt-vuefire"],
   plugins: ["@/plugins/firebase.js"],
   css: ["@/assets/css/global.css"],
+  tailwindcss: {},
+  autoprefixer: {},
   alias: {
     assets: "/<rootDir>/assets/",
   },
