@@ -112,7 +112,7 @@ const showConfirmDialog = (tag: TechTag) => {
   <div class="text-copy-black">
     <h2 class="text-3xl mb-6">Available tech-tags</h2>
     <div class="flex flex-row">
-      <div class="rounded basis-1/5 shadow-lg bg-white p-4 mr-4">
+      <div class="card rounded basis-1/5 shadow-lg bg-white p-4 mr-4">
         <h2 class="text-xl mb-4">Frontend</h2>
         <div class="flex flex-wrap max-w-[85%]">
           <Tag
@@ -124,7 +124,7 @@ const showConfirmDialog = (tag: TechTag) => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/5 shadow-lg bg-white p-4 mx-4">
+      <div class="card rounded basis-1/5 shadow-lg bg-white p-4 mx-4">
         <h2 class="text-xl mb-4">Backend</h2>
         <div class="flex flex-wrap max-w-[85%]">
           <Tag
@@ -136,7 +136,7 @@ const showConfirmDialog = (tag: TechTag) => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/5 shadow-lg bg-white p-4 mx-4">
+      <div class="card rounded basis-1/5 shadow-lg bg-white p-4 mx-4">
         <h2 class="text-xl mb-4">Fullstack</h2>
         <div class="flex flex-wrap max-w-[85%]">
           <Tag
@@ -148,7 +148,7 @@ const showConfirmDialog = (tag: TechTag) => {
           />
         </div>
       </div>
-      <div class="rounded basis-1/5 shadow-lg bg-white p-4 ml-4">
+      <div class="card rounded basis-1/5 shadow-lg bg-white p-4 ml-4">
         <h2 class="text-xl mb-4">Embedded</h2>
         <div class="flex flex-wrap max-w-[85%]">
           <Tag

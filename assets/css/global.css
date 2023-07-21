@@ -29,27 +29,23 @@
       .btn {
         @apply text-copy-black bg-white;
       }
-      .router-link-exact-active {
-        @apply text-rose-quartz pb-1 border-b-4 border-rose-quartz;
-      }
     }
 
     &.dark {
-      @apply bg-galaxy-blue text-rose-quartz;
+      @apply bg-copy-black text-white;
+
+      a {
+        @apply text-rose-quartz;
+      }
+      .card {
+        @apply bg-black bg-opacity-50 text-white;
+      }
 
       header {
-        @apply bg-white text-galaxy-blue;
-
-        img {
-          filter: invert(7%) sepia(29%) saturate(7220%) hue-rotate(224deg)
-            brightness(87%) contrast(112%);
-        }
+        @apply bg-black text-white;
 
         .btn {
-          @apply bg-purple-rain text-white;
-        }
-        .router-link-exact-active {
-          @apply text-classic-blue pb-1 border-b-4 border-classic-blue;
+          @apply bg-rose-quartz text-galaxy-blue;
         }
       }
     }

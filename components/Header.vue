@@ -21,7 +21,6 @@ const modeStore = useModeStore();
 const { setNewMode } = modeStore;
 
 const open = () => {
-  console.log("lala");
   setNewMode();
   openDialog("projectDialog");
 };
@@ -75,7 +74,7 @@ const open = () => {
           <NuxtLink :to="l.link">{{ l.title }}</NuxtLink>
         </li>
         <li class="order-last">
-          <button @click="toggleDark()" class="btn px-4 py-2">
+          <button @click="() => toggleDark()" class="btn px-4 py-2">
             Dark Toggle
           </button>
         </li>
@@ -84,4 +83,8 @@ const open = () => {
   </header>
 </template>
 
-<style></style>
+<style>
+.router-link-exact-active {
+  @apply text-rose-quartz pb-1 border-b-4 border-rose-quartz;
+}
+</style>
