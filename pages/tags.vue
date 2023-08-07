@@ -187,7 +187,7 @@ const showConfirmDialog = (tag: TechTag) => {
 
             <div class="rounded-md -space-y-px">
               <div
-                class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
+                class="field relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
                   'bg-purple-rain border-galaxy-blue':
                     newTag.aspect == Aspect.Backend,
@@ -195,13 +195,12 @@ const showConfirmDialog = (tag: TechTag) => {
                     newTag.aspect != Aspect.Backend,
                 }"
               >
-                <div class="flex items-center h-5">
-                  <input
-                    :value="Aspect.Backend"
-                    v-model="newTag.aspect"
-                    type="radio"
-                  />
-                </div>
+                <input
+                  class="flex self-center h-5"
+                  :value="Aspect.Backend"
+                  v-model="newTag.aspect"
+                  type="radio"
+                />
                 <label
                   for="settings-option-0"
                   class="ml-3 flex flex-col cursor-pointer"
@@ -228,7 +227,7 @@ const showConfirmDialog = (tag: TechTag) => {
               </div>
 
               <div
-                class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
+                class="field relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
                   'bg-purple-rain border-galaxy-blue':
                     newTag.aspect == Aspect.Frontend,
@@ -236,13 +235,12 @@ const showConfirmDialog = (tag: TechTag) => {
                     newTag.aspect != Aspect.Frontend,
                 }"
               >
-                <div class="flex items-center h-5">
-                  <input
-                    :value="Aspect.Frontend"
-                    v-model="newTag.aspect"
-                    type="radio"
-                  />
-                </div>
+                <input
+                  class="flex self-center h-5"
+                  :value="Aspect.Frontend"
+                  v-model="newTag.aspect"
+                  type="radio"
+                />
                 <label
                   for="settings-option-0"
                   class="ml-3 flex flex-col cursor-pointer"
@@ -269,7 +267,7 @@ const showConfirmDialog = (tag: TechTag) => {
               </div>
 
               <div
-                class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
+                class="field relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
                   'bg-purple-rain border-galaxy-blue':
                     newTag.aspect == Aspect.Fullstack,
@@ -277,13 +275,12 @@ const showConfirmDialog = (tag: TechTag) => {
                     newTag.aspect != Aspect.Fullstack,
                 }"
               >
-                <div class="flex items-center h-5">
-                  <input
-                    :value="Aspect.Fullstack"
-                    v-model="newTag.aspect"
-                    type="radio"
-                  />
-                </div>
+                <input
+                  class="flex self-center h-5"
+                  :value="Aspect.Fullstack"
+                  v-model="newTag.aspect"
+                  type="radio"
+                />
                 <label
                   for="settings-option-0"
                   class="ml-3 flex flex-col cursor-pointer"
@@ -310,7 +307,7 @@ const showConfirmDialog = (tag: TechTag) => {
               </div>
 
               <div
-                class="relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
+                class="field relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
                   'bg-purple-rain border-galaxy-blue':
                     newTag.aspect == Aspect.Embedded,
@@ -318,13 +315,12 @@ const showConfirmDialog = (tag: TechTag) => {
                     newTag.aspect != Aspect.Embedded,
                 }"
               >
-                <div class="flex items-center h-5">
-                  <input
-                    :value="Aspect.Embedded"
-                    v-model="newTag.aspect"
-                    type="radio"
-                  />
-                </div>
+                <input
+                  class="flex self-center h-5"
+                  :value="Aspect.Embedded"
+                  v-model="newTag.aspect"
+                  type="radio"
+                />
                 <label
                   for="settings-option-0"
                   class="ml-3 flex flex-col cursor-pointer"

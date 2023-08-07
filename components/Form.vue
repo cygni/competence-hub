@@ -133,7 +133,8 @@ const tagAlreadyChosen = (tag: string) => {
 
 <template>
   <div
-    class="bg-rose-quartz bg-opacity-50 rounded-lg shadow-lg p-6 overflow-hidden"
+    id="form"
+    class="bg-rose-quartz dark:bg-copy-black bg-opacity-50 rounded-lg shadow-lg p-6 overflow-hidden"
   >
     <div class="text-galaxy-blue mb-4 flex justify-between">
       <h1 class="tracking-wider text-2xl font-bold">{{ heading }}</h1>

@@ -22,7 +22,7 @@ defineProps<{ tag: TechTag; edit?: boolean }>();
 defineEmits(["deleteTag"]);
 
 /* Cygni brand colors */
-const fullstackColors = ["#000735", "#440B45"];
+const fullstackColors = ["#0f4c81", "#440B45"];
 const backendColors = ["#00b3b0", "#00966d"];
 const frontendColors = ["#eab8b2", "#DD5928"];
 const embeddedColors = ["#f9e79f", "#e3d9d7"];
