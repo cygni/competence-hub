@@ -23,7 +23,7 @@ export default <Partial<Config>>{
       transparent: "transparent",
       current: "currentColor",
       white: "#ffffff",
-      black: "#00000",
+      black: "#000000",
       "copy-black": "#231F20",
       "galaxy-blue": "#000735",
       "rose-quartz": "#eab8b2",

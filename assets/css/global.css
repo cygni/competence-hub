@@ -14,8 +14,111 @@
 }
 
 /* body {
-  @apply h-full dark:bg-copy-black bg-rose-quartz dark:text-rose-quartz text-copy-black;
+  @apply h-full dark:bg-copy-black bg-rose-quartz dark:text-rose-quartz ;
 } */
+
+@layer base {
+  body {
+    @apply h-screen bg-rose-quartz text-copy-black;
+
+    header {
+      img {
+        filter: invert(88%) sepia(1%) saturate(4899%) hue-rotate(317deg)
+          brightness(88%) contrast(90%);
+      }
+      .btn {
+        @apply text-copy-black bg-white;
+      }
+    }
+
+    h2 {
+      @apply text-white;
+    }
+
+    &.dark {
+      @apply bg-black text-white;
+
+      a {
+        @apply text-rose-quartz;
+      }
+      .card {
+        @apply bg-copy-black text-white;
+      }
+
+      header {
+        @apply bg-galaxy-blue text-white;
+
+        a {
+          @apply text-white;
+        }
+
+        .router-link-exact-active {
+          @apply text-rose-quartz pb-1 border-b-4 border-rose-quartz;
+        }
+
+        .btn {
+          @apply bg-rose-quartz text-galaxy-blue;
+        }
+      }
+
+      dialog {
+        #form {
+          @apply bg-copy-black bg-opacity-100;
+
+          div {
+            @apply text-white;
+          }
+        }
+
+        img {
+          filter: invert(100%);
+        }
+
+        .btn {
+          img {
+            filter: invert(0%);
+          }
+        }
+      }
+
+      dialog::backdrop {
+        @apply bg-black bg-opacity-50;
+        backdrop-filter: blur(5px);
+      }
+
+      label {
+        @apply text-white;
+      }
+
+      input,
+      textarea,
+      select,
+      option {
+        @apply bg-opacity-10 focus:ring-white focus:ring-1;
+      }
+
+      select {
+        @apply text-white;
+      }
+
+      .field {
+        @apply bg-copy-black text-white;
+
+        &:has(> input:checked) {
+          @apply bg-galaxy-blue;
+        }
+
+        input:checked + label > span {
+          @apply text-white;
+        }
+
+        input + label > span {
+          @apply text-white text-opacity-50;
+        }
+      }
+    }
+  }
+}
 
 html,
 body,
