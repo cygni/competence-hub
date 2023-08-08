@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, getAuth, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   console.log("MIDDLEWARE ACTIVE");
@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 });
 
 const signIn = async () => {
-  const auth = getAuth();
+  const auth = await getAuth();
   const provider = new GoogleAuthProvider();
-  await signInWithRedirect(auth, provider);
+  await signInWithPopup(auth, provider);
 };
