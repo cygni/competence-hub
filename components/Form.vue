@@ -63,7 +63,6 @@ watchEffect(() => {
 });
 
 const auth = await getAuth();
-console.log("auth", auth);
 
 const addToProject = (e: any) => {
   e.preventDefault();
@@ -105,20 +104,20 @@ const isProjectFormValid = (p: Project) => {
 };
 
 const deleteProject = () => {
-  try {
-    new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
+    if (selectedProject && auth.currentUser?.uid === selectedProject.id) {
       deleteDoc(doc(useFirestore(), "competence-projects", selectedProject.id));
-      // resolve(null);
+      resolve(null);
+    } else {
+      return reject(new Error("Only the owner of the project can delete"));
+    }
+  })
+    .then(() => {
+      emit("onProjectChanged");
     })
-      .catch((error) => {
-        console.log("errrrrr");
-      })
-      .finally(() => {
-        emit("onProjectChanged");
-      });
-  } catch (error) {
-    console.log("okokok");
-  }
+    .catch((error: Error) => {
+      alert("Only the owner of the project can delete");
+    });
 };
 
 const removeTag = (tag: TechTag) => {
