@@ -185,7 +185,7 @@ const showConfirmDialog = (tag: TechTag) => {
           <fieldset>
             <legend class="sr-only">Privacy setting</legend>
 
-            <div class="rounded-md -space-y-px">
+            <div class="rounded-md -space-y-px max-w-md">
               <div
                 class="field relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
