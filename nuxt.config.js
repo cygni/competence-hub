@@ -9,6 +9,22 @@ export default defineNuxtConfig({
   alias: {
     assets: "/<rootDir>/assets/",
   },
+  head: {
+    title: "Competence Hub",
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico?v2" },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
+      },
+      { rel: "icon", sizes: "32x32", href: "/favicon-32x32.png" },
+      { rel: "icon", sizes: "16x16", href: "/favicon-16x16.png" },
+      { rel: "icon", sizes: "192x192", href: "/android-chrome-192x192" },
+      { rel: "icon", sizes: "512x512", href: "/android-chrome-512x512" },
+      { rel: "manifest", href: "/site.webmanifest" },
+    ],
+  },
   app: {
     head: {
       title: "Competence Hub",
