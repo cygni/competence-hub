@@ -105,7 +105,7 @@ const isProjectFormValid = (p: Project) => {
 
 const deleteProject = () => {
   new Promise((resolve, reject) => {
-    if (selectedProject && auth.currentUser?.uid === selectedProject.id) {
+    if (selectedProject && auth.currentUser?.uid === selectedProject.userID) {
       deleteDoc(doc(useFirestore(), "competence-projects", selectedProject.id));
       resolve(null);
     } else {
