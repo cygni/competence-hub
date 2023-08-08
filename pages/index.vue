@@ -29,7 +29,7 @@ const open = (project?: Project) => {
 
 <template>
   <div>
-    <h2 class="text-3xl mb-6 dark:text-white">All projects</h2>
+    <h2 class="text-3xl mb-6 text-galaxy-blue">All projects</h2>
     <div class="flex flex-wrap flex-row">
       <ProjectCard
         v-for="project in projects"

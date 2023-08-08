@@ -6,6 +6,7 @@ export type Project = {
   tags: TechTag[];
   purpose: string;
   link: string;
+  userID: string;
 };
 
 export type TechTag = {

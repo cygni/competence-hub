@@ -32,11 +32,15 @@
     }
 
     h2 {
-      @apply text-white;
+      @apply text-galaxy-blue;
     }
 
     &.dark {
       @apply bg-black text-white;
+
+      h2 {
+        @apply text-white;
+      }
 
       a {
         @apply text-rose-quartz;
@@ -94,7 +98,7 @@
       textarea,
       select,
       option {
-        @apply bg-opacity-10 focus:ring-white focus:ring-1;
+        @apply text-white bg-opacity-10 focus:ring-white focus:ring-1;
       }
 
       select {

@@ -9,6 +9,8 @@ import {
 import { storeToRefs } from "pinia";
 import { useModeStore } from "../store/index";
 import { Mode, Project, TechTag } from "../types/index";
+import { auth } from "firebase-admin";
+import { getAuth } from "firebase/auth";
 
 const { selectedProject } = defineProps<{
   selectedProject: Project | undefined;
@@ -60,6 +62,9 @@ watchEffect(() => {
   }
 });
 
+const auth = await getAuth();
+console.log("auth", auth);
+
 const addToProject = (e: any) => {
   e.preventDefault();
   const body: Project = {
@@ -70,7 +75,9 @@ const addToProject = (e: any) => {
     tags: tags.value,
     purpose: purpose.value,
     link: link.value,
+    userID: auth.currentUser?.uid ? auth.currentUser.uid : "",
   };
+  console.log("apapapapapap", body.userID);
 
   if (isProjectFormValid(body)) {
     new Promise((resolve, reject) => {
@@ -98,12 +105,20 @@ const isProjectFormValid = (p: Project) => {
 };
 
 const deleteProject = () => {
-  new Promise((resolve, reject) => {
-    deleteDoc(doc(useFirestore(), "competence-projects", selectedProject.id));
-    resolve(null);
-  }).then(() => {
-    emit("onProjectChanged");
-  });
+  try {
+    new Promise((resolve, reject) => {
+      deleteDoc(doc(useFirestore(), "competence-projects", selectedProject.id));
+      // resolve(null);
+    })
+      .catch((error) => {
+        console.log("errrrrr");
+      })
+      .finally(() => {
+        emit("onProjectChanged");
+      });
+  } catch (error) {
+    console.log("okokok");
+  }
 };
 
 const removeTag = (tag: TechTag) => {
