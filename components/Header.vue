@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { openDialog } from "~/helper/dialog";
+import { openDialog } from "../helper/dialog";
 import { useModeStore } from "../store/index";
 
 import { useDark, useToggle } from "@vueuse/core";

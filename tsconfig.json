@@ -1,4 +1,9 @@
 {
   "extends": "./.nuxt/tsconfig.json",
-  "include": ["env.d.ts", ".nuxt/nuxt.d.ts", "**/*"]
+  "include": ["env.d.ts", ".nuxt/nuxt.d.ts", "**/*"],
+  "compilerOptions": {
+    "paths": {
+      "src/*": ["./src/*"]
+    }
+  }
 }
