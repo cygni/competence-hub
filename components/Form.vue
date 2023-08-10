@@ -76,7 +76,6 @@ const addToProject = (e: any) => {
     link: link.value,
     userID: auth.currentUser?.uid ? auth.currentUser.uid : "",
   };
-  console.log("apapapapapap", body.userID);
 
   if (isProjectFormValid(body)) {
     new Promise((resolve, reject) => {
