@@ -9,7 +9,7 @@ const mockProject = {
   description: "Description",
   contact: "Contact@email.com",
   link: "Link",
-  tags: [{ aspect: "frontend", tag: "vue" }],
+  tags: [{ aspect: "frontend", value: "vue" }],
 };
 
 describe("ProjectCard", () => {

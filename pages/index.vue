@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { collection } from "firebase/firestore";
 import createError from "http-errors";
-import { storeToRefs } from "pinia";
 import { useCollection, useFirestore } from "vuefire";
-import { openDialog } from "~/helper/dialog";
+import { openDialog } from "../helper/dialog";
 import { useModeStore } from "../store/index";
 import { Project } from "../types/index";
 

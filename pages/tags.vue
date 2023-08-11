@@ -26,7 +26,7 @@ let embeddedTags = ref(
   useCollection(query(tagsRef, where("aspect", "==", "embedded")))
 );
 
-let newTag = ref({ value: "", aspect: "" });
+let newTag = ref(<TechTag>{ value: "", aspect: "" });
 let selectedTag = ref(<TechTag>{ value: "", aspect: "" });
 
 const isDuplicate = (newTagValue: string) => {
