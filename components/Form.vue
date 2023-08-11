@@ -133,7 +133,6 @@ const addTags = (e: any) => {
   tags.value.push(tag);
 
   const route = useRoute();
-  console.log("papapapapapapa", route.name);
   if (useRoute().name != "index") {
     navigateTo("/");
   }

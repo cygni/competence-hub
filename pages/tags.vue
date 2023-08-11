@@ -26,11 +26,14 @@ let embeddedTags = ref(
   useCollection(query(tagsRef, where("aspect", "==", "embedded")))
 );
 
-let newTag = ref(<TechTag>{ value: "", aspect: "" });
+const newTag = ref({
+  value: "",
+  aspect: "",
+});
+
 let selectedTag = ref(<TechTag>{ value: "", aspect: "" });
 
 const isDuplicate = (newTagValue: string) => {
-  console.log("inside is duplicate", useCollection(tagsRef));
   const tagValues = useCollection(tagsRef).value.map((tag) => tag.value);
   return tagValues.includes(newTagValue);
 };
@@ -63,6 +66,8 @@ const addTag = () => {
         value: newTag.value.value,
       }).then(() => {
         getTags();
+        newTag.value.value = "";
+        newTag.value.aspect = "";
       });
     }
   } else {
