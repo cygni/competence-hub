@@ -4,6 +4,7 @@ import { openDialog } from "../helper/dialog";
 import { Aspect, TechTag } from "../types/index";
 import { collection, query, where } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
+import { ref } from "vue";
 
 const collection_name = "competence-tags";
 
@@ -26,7 +27,7 @@ let embeddedTags = ref(
   useCollection(query(tagsRef, where("aspect", "==", "embedded")))
 );
 
-const newTag = ref({
+const newTag = ref(<TechTag>{
   value: "",
   aspect: "",
 });
@@ -176,6 +177,7 @@ const showConfirmDialog = (tag: TechTag) => {
           Tech tag
         </label>
         <input
+          v-if="newTag"
           v-model="newTag.value"
           id="techtag-value"
           class="appearance-none w-full text-purple-rain border border-purbeck-stone rounded py-3 px-4 leading-tight transition border focus:outline-none focus:ring-2 focus:ring-purple-rain focus:border-transparent appearance-none border border-transparent w-full py-2 px-4 bg-white placeholder-gray-400 shadow-md rounded-lg text-base focus:outline-none focus:ring-2 focus:border-transparent"
@@ -190,7 +192,7 @@ const showConfirmDialog = (tag: TechTag) => {
           <fieldset>
             <legend class="sr-only">Privacy setting</legend>
 
-            <div class="rounded-md -space-y-px max-w-md">
+            <div class="rounded-md -space-y-px max-w-md" v-if="newTag">
               <div
                 class="field relative border rounded-tl-md rounded-tr-md py-2 px-6 flex"
                 :class="{
@@ -356,12 +358,14 @@ const showConfirmDialog = (tag: TechTag) => {
       </div>
     </form>
     <ConfirmDialog
+      v-if="selectedTag"
       :title="`Are you sure you want to delete the tag ${selectedTag.value}`"
       @callbackFn="removeSelectedTag(selectedTag)"
     />
 
     <div class="col-span-1 flex justify-start items-center mt-4 max-w-xs">
       <button
+        v-if="newTag"
         class="flex-shrink-0 bg-classic-blue bg-opacity-90 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md enabled:hover:bg-classic-blue focus:outline-none focus:ring-2 focus:ring-classic-blue focus:ring-offset-2 focus:ring-offset-classic-blue"
         @click="addTag"
         :disabled="!newTag.value || !newTag.aspect"

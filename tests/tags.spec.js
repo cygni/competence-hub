@@ -3,6 +3,15 @@ import { mount } from "@vue/test-utils";
 import Tags from "../pages/tags.vue";
 import { initializeApp } from "firebase/app";
 
+const mockTagsCollection = {
+  "competence-tags": [
+    { aspect: "frontend", value: "react" },
+    { aspect: "frontend", value: "react" },
+    { aspect: "backend", value: "c#" },
+    { aspect: "embedded", value: "java" },
+  ],
+};
+
 const mockTags = {
   "competence-tags": [
     { aspect: "frontend", value: "react" },
@@ -31,8 +40,16 @@ vi.mock("firebase/firestore", async () => {
   return {
     ...actual,
     collection: (tags) => {
-      tags = mockTags;
+      tags = mockTagsCollection;
       return tags;
+    },
+    where: (compare1, sign, compare2) => {
+      return { compare1, sign, compare2 };
+    },
+    query: (tags, condition) => {
+      return tags["competence-tags"].filter((tag) => {
+        return tag.aspect == condition.compare2;
+      });
     },
   };
 });
